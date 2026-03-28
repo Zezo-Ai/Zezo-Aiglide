@@ -1,6 +1,34 @@
-'3.0':
+'4.0':
     Getting Started:
         Introduction: '/'
+        Changelog: '/4.0/changelog/'
+        Installation: '/4.0/installation/'
+        Simple example: '/4.0/simple-example/'
+    Configuration:
+        Setup: '/4.0/config/setup/'
+        Source & cache: '/4.0/config/source-and-cache/'
+        Security: '/4.0/config/security/'
+        Responses: '/4.0/config/responses/'
+        Image driver: '/4.0/config/image-driver/'
+        Defaults & presets: '/4.0/config/defaults-and-presets/'
+        Advanced usage: '/4.0/config/advanced-usage/'
+    Image API:
+        Quick reference: '/4.0/api/quick-reference/'
+        Orientation: '/4.0/api/orientation/'
+        Flip: '/4.0/api/flip/'
+        Crop: '/4.0/api/crop/'
+        Size: '/4.0/api/size/'
+        Pixel density: '/4.0/api/pixel-density/'
+        Adjustments: '/4.0/api/adjustments/'
+        Effects: '/4.0/api/effects/'
+        Watermarks: '/4.0/api/watermarks/'
+        Background: '/4.0/api/background/'
+        Border: '/4.0/api/border/'
+        Encode: '/4.0/api/encode/'
+        Progressive & Interlaced: '/4.0/api/progressive-interlaced/'
+'3.0':
+    Getting Started:
+        Introduction: '/3.0/'
         Changelog: '/3.0/changelog/'
         Installation: '/3.0/installation/'
         Simple example: '/3.0/simple-example/'
@@ -28,7 +56,7 @@
         Progressive & Interlaced: '/3.0/api/progressive-interlaced/'
 '2.0':
     Getting Started:
-        Introduction: '/'
+        Introduction: '/2.0/'
         Changelog: '/2.0/changelog/'
         Installation: '/2.0/installation/'
         Simple example: '/2.0/simple-example/'
@@ -55,7 +83,7 @@
         Encode: '/2.0/api/encode/'
 '1.0':
     Getting Started:
-        Introduction: /1.0/'
+        Introduction: '/1.0/'
         Changelog: '/1.0/changelog/'
         Installation: '/1.0/installation/'
         Simple example: '/1.0/simple-example/'
