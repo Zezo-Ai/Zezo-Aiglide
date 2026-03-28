@@ -30,7 +30,7 @@ class Border extends BaseManipulator
         if ($border) {
             [$width, $color, $method] = $border;
 
-            return $this->{'run' . $method}($image, $width, $color);
+            return $this->{'run'.$method}($image, $width, $color);
         }
 
         return $image;
