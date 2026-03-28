@@ -314,7 +314,7 @@ class Size extends BaseManipulator
      */
     public function runFillMaxResize(ImageInterface $image, int $width, int $height): ImageInterface
     {
-        return $image->contain($width, $height, (string) Color::transparent());
+        return $image->contain($width, $height, Color::transparent()->toString());
     }
 
     /**
@@ -350,7 +350,7 @@ class Size extends BaseManipulator
 
         [$offset_x, $offset_y] = $this->resolveCropOffset($image, $width, $height);
 
-        return $image->crop($width, $height, $offset_x, $offset_y, (string) Color::transparent());
+        return $image->crop($width, $height, $offset_x, $offset_y, Color::transparent()->toString());
     }
 
     /**
