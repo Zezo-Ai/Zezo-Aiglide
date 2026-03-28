@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace League\Glide\Api;
 
-use Intervention\Image\ImageManager;
 use Intervention\Image\Interfaces\ImageInterface;
 use Intervention\Image\Interfaces\ImageManagerInterface;
 use League\Glide\Manipulators\ManipulatorInterface;
