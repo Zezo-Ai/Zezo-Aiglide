@@ -104,7 +104,11 @@ class Encoder
     {
         $fm = (string) $this->getParam('fm');
         if ($fm) {
-            return array_key_exists($fm, static::supportedFormats()) ? $fm : 'jpg';
+            if (!array_key_exists($fm, static::supportedFormats())) {
+                throw new \InvalidArgumentException("Invalid format provided: {$fm}");
+            }
+
+            return $fm;
         }
 
         $mediaType = MediaType::tryFrom($image->origin()->mediaType());
