@@ -90,7 +90,7 @@ class Encoder
                 throw new \Exception("Invalid format provided: {$format}");
         }
 
-        return $image->encodeByExtension($format, ...$encoderOptions);
+        return $image->encodeUsingFileExtension($format, ...$encoderOptions);
     }
 
     /**

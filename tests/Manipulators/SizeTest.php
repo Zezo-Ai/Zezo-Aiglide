@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace League\Glide\Manipulators;
 
+use Intervention\Image\Color;
 use Intervention\Image\Interfaces\ImageInterface;
 use PHPUnit\Framework\TestCase;
 
@@ -158,7 +159,7 @@ class SizeTest extends TestCase
             $mock->shouldReceive('crop')->andReturn($mock)->once();
             $mock->shouldReceive('contain')->andReturn($mock)->once();
             $mock->shouldReceive('resize')->with(100, 100)->andReturn($mock)->once();
-            $mock->shouldReceive('pad')->andReturn($mock)->once();
+            $mock->shouldReceive('containDown')->andReturn($mock)->once();
             $mock->shouldReceive('scaleDown')->with(100, 100)->andReturn($mock)->times(1);
             $mock->shouldReceive('scale')->with(100, 100)->andReturn($mock)->times(2);
         });
@@ -219,7 +220,7 @@ class SizeTest extends TestCase
     public function testRunFillResize(): void
     {
         $image = \Mockery::mock(ImageInterface::class, function ($mock) {
-            $mock->shouldReceive('pad')->with(100, 100, 'transparent')->andReturn($mock)->once();
+            $mock->shouldReceive('containDown')->with(100, 100, (string) Color::transparent())->andReturn($mock)->once();
         });
 
         $this->assertInstanceOf(
@@ -258,7 +259,7 @@ class SizeTest extends TestCase
             $mock->shouldReceive('width')->andReturn(100)->times(4);
             $mock->shouldReceive('height')->andReturn(100)->times(4);
             $mock->shouldReceive('scale')->with(100, 100)->andReturn($mock)->once();
-            $mock->shouldReceive('crop')->with(100, 100, 0, 0, 'transparent')->andReturn($mock)->once();
+            $mock->shouldReceive('crop')->with(100, 100, 0, 0, (string) Color::transparent())->andReturn($mock)->once();
         });
 
         $this->assertInstanceOf(

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace League\Glide\Manipulators;
 
+use Intervention\Image\Direction;
 use Intervention\Image\Interfaces\ImageInterface;
 
 class Orientation extends BaseManipulator
@@ -26,12 +27,12 @@ class Orientation extends BaseManipulator
 
         if ('auto' === $orientation) {
             return match ($image->exif('Orientation')) {
-                2 => $image->flip(),
+                2 => $image->flip(Direction::VERTICAL),
                 3 => $image->rotate(180),
-                4 => $image->rotate(180)->flip(),
-                5 => $image->rotate(270)->flip(),
+                4 => $image->rotate(180)->flip(Direction::VERTICAL),
+                5 => $image->rotate(270)->flip(Direction::VERTICAL),
                 6 => $image->rotate(270),
-                7 => $image->rotate(90)->flip(),
+                7 => $image->rotate(90)->flip(Direction::VERTICAL),
                 8 => $image->rotate(90),
                 default => $image,
             };

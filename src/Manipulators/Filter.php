@@ -38,7 +38,7 @@ class Filter extends BaseManipulator
      */
     public function runGreyscaleFilter(ImageInterface $image): ImageInterface
     {
-        return $image->greyscale();
+        return $image->grayscale();
     }
 
     /**
@@ -50,7 +50,7 @@ class Filter extends BaseManipulator
      */
     public function runSepiaFilter(ImageInterface $image): ImageInterface
     {
-        $image->greyscale()
+        $image->grayscale()
             ->brightness(-10)
             ->contrast(10)
             ->colorize(38, 27, 12)

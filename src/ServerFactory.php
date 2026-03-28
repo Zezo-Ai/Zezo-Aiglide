@@ -4,7 +4,10 @@ declare(strict_types=1);
 
 namespace League\Glide;
 
+use Intervention\Image\Drivers\Gd\Driver as GdDriver;
+use Intervention\Image\Drivers\Imagick\Driver as ImagickDriver;
 use Intervention\Image\ImageManager;
+use Intervention\Image\Interfaces\ImageManagerInterface;
 use League\Flysystem\Filesystem;
 use League\Flysystem\FilesystemOperator;
 use League\Flysystem\Local\LocalFilesystemAdapter;
@@ -229,9 +232,9 @@ class ServerFactory
     /**
      * Get Intervention image manager.
      *
-     * @return ImageManager Intervention image manager.
+     * @return ImageManagerInterface Intervention image manager.
      */
-    public function getImageManager(): ImageManager
+    public function getImageManager(): ImageManagerInterface
     {
         $driver = 'gd';
 
@@ -239,11 +242,11 @@ class ServerFactory
             $driver = $this->config['driver'];
         }
 
-        return match ($driver) {
-            'gd' => ImageManager::gd(),
-            'imagick' => ImageManager::imagick(),
-            default => ImageManager::withDriver($driver),
-        };
+        return ImageManager::usingDriver(match ($driver) {
+            'gd' => GdDriver::class,
+            'imagick' => ImagickDriver::class,
+            default => $driver,
+        });
     }
 
     /**

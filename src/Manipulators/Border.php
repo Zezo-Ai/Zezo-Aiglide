@@ -30,7 +30,7 @@ class Border extends BaseManipulator
         if ($border) {
             [$width, $color, $method] = $border;
 
-            return $this->{'run'.$method}($image, $width, $color);
+            return $this->{'run' . $method}($image, $width, $color);
         }
 
         return $image;
@@ -116,7 +116,8 @@ class Border extends BaseManipulator
     {
         $dpr = $this->getParam('dpr');
 
-        if (!is_numeric($dpr)
+        if (
+            !is_numeric($dpr)
             || $dpr < 0
             || $dpr > 8
         ) {
@@ -137,17 +138,14 @@ class Border extends BaseManipulator
      */
     public function runOverlay(ImageInterface $image, float $width, string $color): ImageInterface
     {
-        return $image->drawRectangle(
-            (int) round($width / 2),
-            (int) round($width / 2),
-            function (RectangleFactory $rectangle) use ($image, $width, $color) {
-                $rectangle->size(
-                    (int) round($image->width() - $width),
-                    (int) round($image->height() - $width),
-                );
-                $rectangle->border($color, intval($width));
-            }
-        );
+        return $image->drawRectangle(function (RectangleFactory $rectangle) use ($image, $width, $color) {
+            $rectangle->at((int) round($width / 2), (int) round($width / 2));
+            $rectangle->size(
+                (int) round($image->width() - $width),
+                (int) round($image->height() - $width),
+            );
+            $rectangle->border($color, intval($width));
+        });
     }
 
     /**

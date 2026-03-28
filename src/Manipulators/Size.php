@@ -4,8 +4,9 @@ declare(strict_types=1);
 
 namespace League\Glide\Manipulators;
 
-use Intervention\Image\Geometry\Rectangle;
+use Intervention\Image\Color;
 use Intervention\Image\Interfaces\ImageInterface;
+use Intervention\Image\Size as ImageSize;
 
 class Size extends BaseManipulator
 {
@@ -159,7 +160,7 @@ class Size extends BaseManipulator
         }
 
         if (is_null($width) || is_null($height)) {
-            $size = (new Rectangle($image->width(), $image->height()))
+            $size = (new ImageSize($image->width(), $image->height()))
                 ->scale($width, $height);
 
             $width = $size->width();
@@ -299,7 +300,7 @@ class Size extends BaseManipulator
      */
     public function runFillResize(ImageInterface $image, int $width, int $height): ImageInterface
     {
-        return $image->pad($width, $height, 'transparent');
+        return $image->containDown($width, $height, (string) Color::transparent());
     }
 
     /**
@@ -313,7 +314,7 @@ class Size extends BaseManipulator
      */
     public function runFillMaxResize(ImageInterface $image, int $width, int $height): ImageInterface
     {
-        return $image->contain($width, $height, 'transparent');
+        return $image->contain($width, $height, (string) Color::transparent());
     }
 
     /**
@@ -349,7 +350,7 @@ class Size extends BaseManipulator
 
         [$offset_x, $offset_y] = $this->resolveCropOffset($image, $width, $height);
 
-        return $image->crop($width, $height, $offset_x, $offset_y, 'transparent');
+        return $image->crop($width, $height, $offset_x, $offset_y, (string) Color::transparent());
     }
 
     /**

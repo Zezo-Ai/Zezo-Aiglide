@@ -97,8 +97,9 @@ class BorderTest extends TestCase
         $image = \Mockery::mock(ImageInterface::class, function ($mock) {
             $mock->shouldReceive('width')->andReturn(100)->once();
             $mock->shouldReceive('height')->andReturn(100)->once();
-            $mock->shouldReceive('drawRectangle')->with(5, 5, \Mockery::on(function ($closure) {
+            $mock->shouldReceive('drawRectangle')->with(\Mockery::on(function ($closure) {
                 $mock2 = \Mockery::mock(RectangleFactory::class, function ($mock2) {
+                    $mock2->shouldReceive('at')->with(5, 5)->once();
                     $mock2->shouldReceive('size')->once();
                     $mock2->shouldReceive('border')->once();
                 });

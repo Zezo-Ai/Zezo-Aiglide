@@ -38,7 +38,7 @@ class BackgroundTest extends TestCase
                         $mock->shouldReceive('setOrigin')->withArgs(function ($arg1) {
                             return $arg1 instanceof Origin;
                         })->andReturn($mock)->once();
-                        $mock->shouldReceive('place')->andReturn($mock)->once();
+                        $mock->shouldReceive('insert')->andReturn($mock)->once();
                     }))->once();
                 }))->once();
             }))->once();

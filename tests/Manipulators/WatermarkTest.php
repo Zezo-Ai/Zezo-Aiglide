@@ -56,9 +56,9 @@ class WatermarkTest extends TestCase
     public function testRun()
     {
         $image = \Mockery::mock(ImageInterface::class, function ($mock) {
-            $mock->shouldReceive('place')->once();
+            $mock->shouldReceive('insert')->once();
             $mock->shouldReceive('driver')->andReturn(\Mockery::mock(DriverInterface::class, function ($mock) {
-                $mock->shouldReceive('handleInput')->with('content')->andReturn(\Mockery::mock(ImageInterface::class, function ($mock) {
+                $mock->shouldReceive('decodeImage')->with('content')->andReturn(\Mockery::mock(ImageInterface::class, function ($mock) {
                     $mock->shouldReceive('width')->andReturn(0)->once();
                     $mock->shouldReceive('scale')->once();
                 }))->once();
@@ -99,7 +99,7 @@ class WatermarkTest extends TestCase
         $this->manipulator->setWatermarksPathPrefix('watermarks');
 
         $driver = \Mockery::mock(DriverInterface::class);
-        $driver->shouldReceive('handleInput')
+        $driver->shouldReceive('decodeImage')
                ->with('content')
                ->andReturn(\Mockery::mock(ImageInterface::class))
                ->once();
