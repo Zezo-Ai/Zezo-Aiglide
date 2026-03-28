@@ -300,7 +300,7 @@ class Size extends BaseManipulator
      */
     public function runFillResize(ImageInterface $image, int $width, int $height): ImageInterface
     {
-        return $image->containDown($width, $height, (string) Color::transparent());
+        return $image->containDown($width, $height, Color::transparent()->toString());
     }
 
     /**
