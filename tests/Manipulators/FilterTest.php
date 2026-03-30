@@ -29,7 +29,7 @@ class FilterTest extends TestCase
     public function testRun()
     {
         $image = \Mockery::mock(ImageInterface::class, function ($mock) {
-            $mock->shouldReceive('greyscale')->twice()->andReturn($mock)
+            $mock->shouldReceive('grayscale')->twice()->andReturn($mock)
                  ->shouldReceive('brightness')->with(-10)->twice()->andReturn($mock)
                  ->shouldReceive('contrast')->with(10)->twice()->andReturn($mock)
                  ->shouldReceive('colorize')->with(38, 27, 12)->once()->andReturn($mock);
@@ -54,7 +54,7 @@ class FilterTest extends TestCase
     public function testRunGreyscaleFilter()
     {
         $image = \Mockery::mock(ImageInterface::class, function ($mock) {
-            $mock->shouldReceive('greyscale')->andReturn($mock)->once();
+            $mock->shouldReceive('grayscale')->andReturn($mock)->once();
         });
 
         $this->assertInstanceOf(
@@ -66,7 +66,7 @@ class FilterTest extends TestCase
     public function testRunSepiaFilter()
     {
         $image = \Mockery::mock(ImageInterface::class, function ($mock) {
-            $mock->shouldReceive('greyscale')->once()->andReturn($mock)
+            $mock->shouldReceive('grayscale')->once()->andReturn($mock)
                  ->shouldReceive('brightness')->with(-10)->twice()->andReturn($mock)
                  ->shouldReceive('contrast')->with(10)->twice()->andReturn($mock)
                  ->shouldReceive('colorize')->with(38, 27, 12)->once()->andReturn($mock);

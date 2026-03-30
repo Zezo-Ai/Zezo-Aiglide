@@ -34,7 +34,7 @@ class Background extends BaseManipulator
 
         return $image->driver()->createImage($image->width(), $image->height())
             ->fill($color)
-            ->place($image, 'top-left', 0, 0)
+            ->insert($image, 0, 0, 'top-left')
             ->setOrigin(
                 new Origin($image->origin()->mediaType())
             );

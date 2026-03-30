@@ -4,9 +4,8 @@ declare(strict_types=1);
 
 namespace League\Glide\Api;
 
-use Intervention\Image\Decoders\BinaryImageDecoder;
-use Intervention\Image\ImageManager;
 use Intervention\Image\Interfaces\ImageInterface;
+use Intervention\Image\Interfaces\ImageManagerInterface;
 use League\Glide\Manipulators\ManipulatorInterface;
 
 class Api implements ApiInterface
@@ -21,7 +20,7 @@ class Api implements ApiInterface
     /**
      * Intervention image manager.
      */
-    protected ImageManager $imageManager;
+    protected ImageManagerInterface $imageManager;
 
     /**
      * Collection of manipulators.
@@ -45,11 +44,11 @@ class Api implements ApiInterface
     /**
      * Create API instance.
      *
-     * @param ImageManager $imageManager Intervention image manager.
-     * @param array        $manipulators Collection of manipulators.
-     * @param Encoder|null $encoder      Image encoder.
+     * @param ImageManagerInterface $imageManager Intervention image manager.
+     * @param array                 $manipulators Collection of manipulators.
+     * @param Encoder|null          $encoder      Image encoder.
      */
-    public function __construct(ImageManager $imageManager, array $manipulators, ?Encoder $encoder = null)
+    public function __construct(ImageManagerInterface $imageManager, array $manipulators, ?Encoder $encoder = null)
     {
         $this->setImageManager($imageManager);
         $this->setManipulators($manipulators);
@@ -60,9 +59,9 @@ class Api implements ApiInterface
     /**
      * Set the image manager.
      *
-     * @param ImageManager $imageManager Intervention image manager.
+     * @param ImageManagerInterface $imageManager Intervention image manager.
      */
-    public function setImageManager(ImageManager $imageManager): void
+    public function setImageManager(ImageManagerInterface $imageManager): void
     {
         $this->imageManager = $imageManager;
     }
@@ -70,9 +69,9 @@ class Api implements ApiInterface
     /**
      * Get the image manager.
      *
-     * @return ImageManager Intervention image manager.
+     * @return ImageManagerInterface Intervention image manager.
      */
-    public function getImageManager(): ImageManager
+    public function getImageManager(): ImageManagerInterface
     {
         return $this->imageManager;
     }
@@ -133,7 +132,7 @@ class Api implements ApiInterface
      */
     public function run(string $source, array $params): string
     {
-        $image = $this->imageManager->read($source, BinaryImageDecoder::class);
+        $image = $this->imageManager->decodeBinary($source);
 
         foreach ($this->manipulators as $manipulator) {
             $manipulator->setParams($params);

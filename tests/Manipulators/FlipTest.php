@@ -29,8 +29,7 @@ class FlipTest extends TestCase
     public function testRun()
     {
         $image = \Mockery::mock(ImageInterface::class, function ($mock) {
-            $mock->shouldReceive('flip')->andReturn($mock)->once();
-            $mock->shouldReceive('flop')->andReturn($mock)->once();
+            $mock->shouldReceive('flip')->andReturn($mock)->twice();
         });
 
         $this->assertInstanceOf(
@@ -47,8 +46,7 @@ class FlipTest extends TestCase
     public function testRunBoth()
     {
         $image = \Mockery::mock(ImageInterface::class, function ($mock) {
-            $mock->shouldReceive('flip')->andReturn($mock)->once();
-            $mock->shouldReceive('flop')->andReturn($mock)->once();
+            $mock->shouldReceive('flip')->andReturn($mock)->twice();
         });
 
         $this->assertInstanceOf(

@@ -4,10 +4,12 @@ declare(strict_types=1);
 
 namespace League\Glide\Api;
 
-use Intervention\Image\Encoders\MediaTypeEncoder;
+use Intervention\Image\Drivers\Gd\Driver as GdDriver;
+use Intervention\Image\Drivers\Imagick\Driver as ImagickDriver;
 use Intervention\Image\ImageManager;
 use Intervention\Image\Interfaces\EncodedImageInterface;
 use Intervention\Image\Interfaces\ImageInterface;
+use Intervention\Image\MediaType;
 use Mockery;
 use PHPUnit\Framework\TestCase;
 
@@ -24,26 +26,27 @@ class EncoderTest extends TestCase
 
     public function setUp(): void
     {
-        $manager = ImageManager::gd();
-        $this->jpg = $manager->read(
-            $manager->create(100, 100)->encode(new MediaTypeEncoder('image/jpeg'))->toFilePointer()
+        $manager = ImageManager::usingDriver(GdDriver::class);
+
+        $this->jpg = $manager->decode(
+            $manager->createImage(100, 100)->encodeUsingMediaType(MediaType::IMAGE_JPEG)->toStream()
         );
-        $this->png = $manager->read(
-            $manager->create(100, 100)->encode(new MediaTypeEncoder('image/png'))->toFilePointer()
+        $this->png = $manager->decode(
+            $manager->createImage(100, 100)->encodeUsingMediaType(MediaType::IMAGE_PNG)->toStream()
         );
-        $this->gif = $manager->read(
-            $manager->create(100, 100)->encode(new MediaTypeEncoder('image/gif'))->toFilePointer()
+        $this->gif = $manager->decode(
+            $manager->createImage(100, 100)->encodeUsingMediaType(MediaType::IMAGE_GIF)->toStream()
         );
 
         if (function_exists('imagecreatefromwebp')) {
-            $this->webp = $manager->read(
-                $manager->create(100, 100)->encode(new MediaTypeEncoder('image/webp'))->toFilePointer()
+            $this->webp = $manager->decode(
+                $manager->createImage(100, 100)->encodeUsingMediaType(MediaType::IMAGE_WEBP)->toStream()
             );
         }
 
         if (function_exists('imagecreatefromavif')) {
-            $this->avif = $manager->read(
-                $manager->create(100, 100)->encode(new MediaTypeEncoder('image/avif'))->toFilePointer()
+            $this->avif = $manager->decode(
+                $manager->createImage(100, 100)->encodeUsingMediaType(MediaType::IMAGE_AVIF)->toStream()
             );
         }
 
@@ -170,13 +173,13 @@ class EncoderTest extends TestCase
                 'The imagick extension is not available.'
             );
         }
-        $manager = ImageManager::imagick();
+        $manager = ImageManager::usingDriver(ImagickDriver::class);
         // These need to be recreated with the imagick driver selected in the manager
-        $this->jpg = $manager->read($manager->create(100, 100)->encode(new MediaTypeEncoder('image/jpeg'))->toFilePointer());
-        $this->png = $manager->read($manager->create(100, 100)->encode(new MediaTypeEncoder('image/png'))->toFilePointer());
-        $this->gif = $manager->read($manager->create(100, 100)->encode(new MediaTypeEncoder('image/gif'))->toFilePointer());
-        $this->heic = $manager->read($manager->create(100, 100)->encode(new MediaTypeEncoder('image/heic'))->toFilePointer());
-        $this->tif = $manager->read($manager->create(100, 100)->encode(new MediaTypeEncoder('image/tiff'))->toFilePointer());
+        $this->jpg = $manager->decode($manager->createImage(100, 100)->encodeUsingMediaType(MediaType::IMAGE_JPEG)->toStream());
+        $this->png = $manager->decode($manager->createImage(100, 100)->encodeUsingMediaType(MediaType::IMAGE_PNG)->toStream());
+        $this->gif = $manager->decode($manager->createImage(100, 100)->encodeUsingMediaType(MediaType::IMAGE_GIF)->toStream());
+        $this->heic = $manager->decode($manager->createImage(100, 100)->encodeUsingMediaType(MediaType::IMAGE_HEIC)->toStream());
+        $this->tif = $manager->decode($manager->createImage(100, 100)->encodeUsingMediaType(MediaType::IMAGE_TIFF)->toStream());
 
         $this->assertSame('image/tiff', $this->getMime($this->encoder->setParams(['fm' => 'tiff'])->run($this->jpg)));
         $this->assertSame('image/tiff', $this->getMime($this->encoder->setParams(['fm' => 'tiff'])->run($this->png)));

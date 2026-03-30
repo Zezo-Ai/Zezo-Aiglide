@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace League\Glide\Api;
 
+use Intervention\Image\Drivers\Gd\Driver;
 use Intervention\Image\ImageManager;
 use Intervention\Image\Interfaces\EncodedImageInterface;
 use Intervention\Image\Interfaces\ImageInterface;
@@ -16,7 +17,7 @@ class ApiTest extends TestCase
 
     public function setUp(): void
     {
-        $this->api = new Api(ImageManager::gd(), []);
+        $this->api = new Api(ImageManager::usingDriver(Driver::class), []);
     }
 
     public function tearDown(): void
@@ -31,7 +32,7 @@ class ApiTest extends TestCase
 
     public function testSetImageManager(): void
     {
-        $this->api->setImageManager(ImageManager::gd());
+        $this->api->setImageManager(ImageManager::usingDriver(Driver::class));
         $this->assertInstanceOf(ImageManager::class, $this->api->getImageManager());
     }
 
@@ -69,7 +70,7 @@ class ApiTest extends TestCase
             $mock->shouldReceive('getApiParams')->andReturn(['foo', 'baz']);
         });
 
-        $api = new Api(ImageManager::gd(), [$manipulator1, $manipulator2]);
+        $api = new Api(ImageManager::usingDriver(Driver::class), [$manipulator1, $manipulator2]);
         $this->assertEquals(array_merge(Api::GLOBAL_API_PARAMS, ['foo', 'bar', 'baz']), $api->getApiParams());
     }
 
@@ -80,12 +81,12 @@ class ApiTest extends TestCase
                 $mock->shouldReceive('mediaType')->andReturn('image/png');
             }));
 
-            $mock->shouldReceive('encodeByExtension')->with('png')->andReturn(\Mockery::mock(EncodedImageInterface::class, function ($mock) {
+            $mock->shouldReceive('encodeUsingFileExtension')->with('png')->andReturn(\Mockery::mock(EncodedImageInterface::class, function ($mock) {
                 $mock->shouldReceive('toString')->andReturn('encoded');
             }));
         });
 
-        $manager = ImageManager::gd();
+        $manager = ImageManager::usingDriver(Driver::class);
 
         $manipulator = \Mockery::mock(ManipulatorInterface::class, function ($mock) use ($image) {
             $mock->shouldReceive('setParams')->with([]);
