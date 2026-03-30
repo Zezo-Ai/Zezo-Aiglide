@@ -123,7 +123,6 @@ class EncoderTest extends TestCase
 
         $this->assertSame('jpg', $this->encoder->setParams(['fm' => ''])->getFormat($this->getImageByMimeType('image/jpeg')));
         $this->assertSame('png', $this->encoder->setParams(['fm' => ''])->getFormat($this->getImageByMimeType('image/png')));
-        $this->assertSame('jpg', $this->encoder->setParams(['fm' => 'invalid'])->getFormat($this->getImageByMimeType('image/png')));
 
         if (function_exists('imagecreatefromwebp')) {
             $this->assertSame('webp', $this->encoder->setParams(['fm' => null])->getFormat($this->getImageByMimeType('image/webp')));
@@ -134,6 +133,13 @@ class EncoderTest extends TestCase
             $this->assertSame('avif', $this->encoder->setParams(['fm' => null])->getFormat($this->getImageByMimeType('image/avif')));
             $this->assertSame('avif', $this->encoder->setParams(['fm' => 'avif'])->getFormat($this->getImageByMimeType('image/jpeg')));
         }
+    }
+
+    public function testGetFormatThrowsExceptionForInvalidFormat(): void
+    {
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage('Invalid format provided: invalid');
+        $this->encoder->setParams(['fm' => 'invalid'])->getFormat($this->getImageByMimeType('image/png'));
     }
 
     protected function getImageByMimeType(string $mimeType): ImageInterface
