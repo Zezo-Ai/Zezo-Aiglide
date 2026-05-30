@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace League\Glide\Manipulators;
 
+use Intervention\Image\Direction;
 use Intervention\Image\Interfaces\ImageInterface;
 
 class Flip extends BaseManipulator
@@ -26,9 +27,9 @@ class Flip extends BaseManipulator
 
         if (null !== $flip) {
             return match ($flip) {
-                'both' => $image->flip()->flop(),
-                'v' => $image->flip(),
-                'h' => $image->flop(),
+                'both' => $image->flip(Direction::HORIZONTAL)->flip(Direction::VERTICAL),
+                'v' => $image->flip(Direction::VERTICAL),
+                'h' => $image->flip(Direction::HORIZONTAL),
                 default => $image,
             };
         }

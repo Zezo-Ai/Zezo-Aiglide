@@ -56,9 +56,9 @@ class WatermarkTest extends TestCase
     public function testRun()
     {
         $image = \Mockery::mock(ImageInterface::class, function ($mock) {
-            $mock->shouldReceive('place')->once();
+            $mock->shouldReceive('insert')->once();
             $mock->shouldReceive('driver')->andReturn(\Mockery::mock(DriverInterface::class, function ($mock) {
-                $mock->shouldReceive('handleInput')->with('content')->andReturn(\Mockery::mock(ImageInterface::class, function ($mock) {
+                $mock->shouldReceive('decodeImage')->with('content')->andReturn(\Mockery::mock(ImageInterface::class, function ($mock) {
                     $mock->shouldReceive('width')->andReturn(0)->once();
                     $mock->shouldReceive('scale')->once();
                 }))->once();
@@ -99,7 +99,7 @@ class WatermarkTest extends TestCase
         $this->manipulator->setWatermarksPathPrefix('watermarks');
 
         $driver = \Mockery::mock(DriverInterface::class);
-        $driver->shouldReceive('handleInput')
+        $driver->shouldReceive('decodeImage')
                ->with('content')
                ->andReturn(\Mockery::mock(ImageInterface::class))
                ->once();
@@ -210,6 +210,43 @@ class WatermarkTest extends TestCase
         $this->assertSame('bottom-right', $this->manipulator->setParams(['markpos' => 'bottom-right'])->getPosition());
         $this->assertSame('bottom-right', $this->manipulator->setParams([])->getPosition());
         $this->assertSame('bottom-right', $this->manipulator->setParams(['markpos' => 'invalid'])->getPosition());
+    }
+
+    public function testRunNormalizesAlphaToZeroOneRange()
+    {
+        $watermarkImage = \Mockery::mock(ImageInterface::class, function ($mock) {
+            $mock->shouldReceive('width')->andReturn(0)->once();
+            $mock->shouldReceive('scale')->once();
+        });
+
+        $image = \Mockery::mock(ImageInterface::class, function ($mock) use ($watermarkImage) {
+            $mock->shouldReceive('insert')
+                ->withArgs(function ($wm, $x, $y, $pos, $alpha) {
+                    return $alpha >= 0 && $alpha <= 1 && 0.65 === $alpha;
+                })
+                ->once()
+                ->andReturnSelf();
+            $mock->shouldReceive('driver')->andReturn(\Mockery::mock(DriverInterface::class, function ($mock) use ($watermarkImage) {
+                $mock->shouldReceive('decodeImage')->with('content')->andReturn($watermarkImage)->once();
+            }))->once();
+        });
+
+        $this->manipulator->setWatermarks(\Mockery::mock('League\Flysystem\FilesystemOperator', function ($watermarks) {
+            $watermarks->shouldReceive('fileExists')->with('image.jpg')->andReturn(true)->once();
+            $watermarks->shouldReceive('read')->with('image.jpg')->andReturn('content')->once();
+        }));
+
+        $this->manipulator->setParams([
+            'mark' => 'image.jpg',
+            'markw' => '100',
+            'markh' => '100',
+            'markpad' => '10',
+            'markalpha' => 65,
+        ]);
+
+        $result = $this->manipulator->run($image);
+
+        $this->assertInstanceOf(ImageInterface::class, $result);
     }
 
     public function testGetAlpha()
