@@ -150,7 +150,7 @@ class Size extends BaseManipulator
      * @param int|null       $width  The image width.
      * @param int|null       $height The image height.
      *
-     * @return int[] The resolved width and height.
+     * @return array<int, int> The resolved width and height.
      */
     public function resolveMissingDimensions(ImageInterface $image, ?int $width = null, ?int $height = null): array
     {
@@ -180,7 +180,7 @@ class Size extends BaseManipulator
      * @param int   $height The target image height.
      * @param float $dpr    The device pixel ratio.
      *
-     * @return int[] The modified width and height.
+     * @return array<int, int> The modified width and height.
      */
     public function applyDpr(int $width, int $height, float $dpr): array
     {
@@ -199,7 +199,7 @@ class Size extends BaseManipulator
      * @param int $width  The image width.
      * @param int $height The image height.
      *
-     * @return int[] The limited width and height.
+     * @return array<int, int> The limited width and height.
      */
     public function limitImageSize(int $width, int $height): array
     {
@@ -379,7 +379,7 @@ class Size extends BaseManipulator
      * @param int            $width  The width.
      * @param int            $height The height.
      *
-     * @return array The resize dimensions.
+     * @return array<int, float|int> The resize dimensions.
      */
     public function resolveCropResizeDimensions(ImageInterface $image, int $width, int $height): array
     {
@@ -397,7 +397,7 @@ class Size extends BaseManipulator
      * @param int            $width  The width.
      * @param int            $height The height.
      *
-     * @return array The crop offset.
+     * @return array<int, int> The crop offset.
      */
     public function resolveCropOffset(ImageInterface $image, int $width, int $height): array
     {
@@ -431,9 +431,7 @@ class Size extends BaseManipulator
     /**
      * Resolve crop with zoom.
      *
-     * @return (float|int)[] The resolved crop.
-     *
-     * @psalm-return array{0: int, 1: int, 2: float}
+     * @return array{0: int, 1: int, 2: float} The resolved crop.
      */
     public function getCrop(): array
     {

@@ -41,9 +41,7 @@ class Border extends BaseManipulator
      *
      * @param ImageInterface $image The source image.
      *
-     * @return (float|string)[]|null The resolved border amount.
-     *
-     * @psalm-return array{0: float, 1: string, 2: string}|null
+     * @return array{0: float, 1: string, 2: string}|null The resolved border amount.
      */
     public function getBorder(ImageInterface $image): ?array
     {

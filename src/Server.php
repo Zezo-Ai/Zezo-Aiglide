@@ -65,11 +65,15 @@ class Server
 
     /**
      * Default image manipulations.
+     *
+     * @var array<string, mixed>
      */
     protected array $defaults = [];
 
     /**
      * Preset image manipulations.
+     *
+     * @var array<string, array<string, mixed>>
      */
     protected array $presets = [];
 
@@ -351,8 +355,8 @@ class Server
     /**
      * Get cache path.
      *
-     * @param string $path   Image path.
-     * @param array  $params Image manipulation params.
+     * @param string               $path   Image path.
+     * @param array<string, mixed> $params Image manipulation params.
      *
      * @return string Cache path.
      *
@@ -407,8 +411,8 @@ class Server
     /**
      * Check if a cache file exists.
      *
-     * @param string $path   Image path.
-     * @param array  $params Image manipulation params.
+     * @param string               $path   Image path.
+     * @param array<string, mixed> $params Image manipulation params.
      *
      * @return bool Whether the cache file exists.
      */
@@ -470,7 +474,7 @@ class Server
     /**
      * Set default image manipulations.
      *
-     * @param array $defaults Default image manipulations.
+     * @param array<string, mixed> $defaults Default image manipulations.
      */
     public function setDefaults(array $defaults): void
     {
@@ -480,7 +484,7 @@ class Server
     /**
      * Get default image manipulations.
      *
-     * @return array Default image manipulations.
+     * @return array<string, mixed> Default image manipulations.
      */
     public function getDefaults(): array
     {
@@ -490,7 +494,7 @@ class Server
     /**
      * Set preset image manipulations.
      *
-     * @param array $presets Preset image manipulations.
+     * @param array<string, array<string, mixed>> $presets Preset image manipulations.
      */
     public function setPresets(array $presets): void
     {
@@ -500,7 +504,7 @@ class Server
     /**
      * Get preset image manipulations.
      *
-     * @return array Preset image manipulations.
+     * @return array<string, array<string, mixed>> Preset image manipulations.
      */
     public function getPresets(): array
     {
@@ -552,8 +556,8 @@ class Server
     /**
      * Generate and return image response.
      *
-     * @param string $path   Image path.
-     * @param array  $params Image manipulation params.
+     * @param string               $path   Image path.
+     * @param array<string, mixed> $params Image manipulation params.
      *
      * @return mixed Image response.
      *
@@ -575,8 +579,8 @@ class Server
     /**
      * Generate and return Base64 encoded image.
      *
-     * @param string $path   Image path.
-     * @param array  $params Image manipulation params.
+     * @param string               $path   Image path.
+     * @param array<string, mixed> $params Image manipulation params.
      *
      * @return string Base64 encoded image.
      *
@@ -599,8 +603,8 @@ class Server
     /**
      * Generate and output image.
      *
-     * @param string $path   Image path.
-     * @param array  $params Image manipulation params.
+     * @param string               $path   Image path.
+     * @param array<string, mixed> $params Image manipulation params.
      *
      * @throws \InvalidArgumentException
      * @throws FileNotFoundException
@@ -631,8 +635,8 @@ class Server
     /**
      * Generate manipulated image.
      *
-     * @param string $path   Image path.
-     * @param array  $params Image manipulation params.
+     * @param string               $path   Image path.
+     * @param array<string, mixed> $params Image manipulation params.
      *
      * @return string Cache path.
      *

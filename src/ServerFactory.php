@@ -25,6 +25,7 @@ use League\Glide\Manipulators\Gamma;
 use League\Glide\Manipulators\Orientation;
 use League\Glide\Manipulators\Pixelate;
 use League\Glide\Manipulators\Sharpen;
+use League\Glide\Manipulators\ManipulatorInterface;
 use League\Glide\Manipulators\Size;
 use League\Glide\Manipulators\Watermark;
 use League\Glide\Responses\ResponseFactoryInterface;
@@ -33,13 +34,15 @@ class ServerFactory
 {
     /**
      * Configuration parameters.
+     *
+     * @var array<string, mixed>
      */
     protected array $config = [];
 
     /**
      * Create ServerFactory instance.
      *
-     * @param array $config Configuration parameters.
+     * @param array<string, mixed> $config Configuration parameters.
      */
     public function __construct(array $config = [])
     {
@@ -259,7 +262,7 @@ class ServerFactory
     /**
      * Get image manipulators.
      *
-     * @return array Image manipulators.
+     * @return array<ManipulatorInterface> Image manipulators.
      */
     public function getManipulators(): array
     {
@@ -294,7 +297,7 @@ class ServerFactory
     /**
      * Get default image manipulations.
      *
-     * @return array Default image manipulations.
+     * @return array<string, mixed> Default image manipulations.
      */
     public function getDefaults(): array
     {
@@ -304,7 +307,7 @@ class ServerFactory
     /**
      * Get preset image manipulations.
      *
-     * @return array Preset image manipulations.
+     * @return array<string, array<string, mixed>> Preset image manipulations.
      */
     public function getPresets(): array
     {
@@ -334,7 +337,7 @@ class ServerFactory
     /**
      * Create configured server.
      *
-     * @param array $config Configuration parameters.
+     * @param array<string, mixed> $config Configuration parameters.
      *
      * @return Server Configured server.
      */

@@ -11,7 +11,7 @@ interface ManipulatorInterface
     /**
      * Set the manipulation params.
      *
-     * @param array $params The manipulation params.
+     * @param array<string, mixed> $params The manipulation params.
      *
      * @return $this
      */

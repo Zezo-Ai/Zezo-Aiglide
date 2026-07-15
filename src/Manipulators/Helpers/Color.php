@@ -100,11 +100,11 @@ class Color
      *
      * @param string $hex The hex value.
      *
-     * @return array The RGB values.
+     * @return list<int> The RGB values.
      */
     public function parseHex(string $hex): array
     {
-        return array_map('hexdec', str_split($hex, 2));
+        return array_map(fn(string $value): int => (int) hexdec($value), str_split($hex, 2));
     }
 
     /**

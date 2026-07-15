@@ -60,9 +60,6 @@ class EncoderTest extends TestCase
 
     public function testCreateInstance(): void
     {
-        /**
-         * @psalm-suppress ArgumentTypeCoercion
-         */
         $this->assertInstanceOf(Encoder::class, $this->encoder);
     }
 
@@ -213,16 +210,11 @@ class EncoderTest extends TestCase
      *
      * @param Mock   $mock
      * @param string $mediaType
-     *
-     * @psalm-suppress MoreSpecificReturnType
      */
     protected function assertMediaType($mock, $mediaType): Mockery\CompositeExpectation
     {
         /*
          * @var Mock $mock
-         */
-        /**
-         * @psalm-suppress LessSpecificReturnStatement, UndefinedMagicMethod
          */
         return $mock->shouldReceive('origin')->andReturn(\Mockery::mock('Intervention\Image\Origin', ['mediaType' => $mediaType]));
     }

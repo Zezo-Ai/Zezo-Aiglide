@@ -43,9 +43,7 @@ class Crop extends BaseManipulator
      *
      * @param ImageInterface $image The source image.
      *
-     * @return int[]|null The resolved coordinates.
-     *
-     * @psalm-return array{0: int, 1: int, 2: int, 3: int}|null
+     * @return array{0: int, 1: int, 2: int, 3: int}|null The resolved coordinates.
      */
     public function getCoordinates(ImageInterface $image): ?array
     {
@@ -84,9 +82,9 @@ class Crop extends BaseManipulator
      * Limit coordinates to image boundaries.
      *
      * @param ImageInterface $image       The source image.
-     * @param int[]          $coordinates The coordinates.
+     * @param array<int, int> $coordinates The coordinates.
      *
-     * @return int[] The limited coordinates.
+     * @return array<int, int> The limited coordinates.
      */
     public function limitToImageBoundaries(ImageInterface $image, array $coordinates): array
     {

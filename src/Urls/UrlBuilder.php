@@ -63,8 +63,8 @@ class UrlBuilder
     /**
      * Get the URL.
      *
-     * @param string $path   The resource path.
-     * @param array  $params The manipulation parameters.
+     * @param string               $path   The resource path.
+     * @param array<string, mixed> $params The manipulation parameters.
      *
      * @return string The URL.
      */
@@ -76,11 +76,7 @@ class UrlBuilder
             throw new \InvalidArgumentException('Not a valid path.');
         }
 
-        /**
-         * @psalm-suppress PossiblyNullArgument, PossiblyUndefinedArrayOffset
-         *
-         * @phpstan-ignore-next-line
-         */
+        /** @phpstan-ignore offsetAccess.notFound */
         $parts['path'] = '/' . trim($parts['path'], '/');
 
         if ($this->signature) {
@@ -93,8 +89,8 @@ class UrlBuilder
     /**
      * Build the URL.
      *
-     * @param array $parts  The URL parts.
-     * @param array $params The manipulation parameters.
+     * @param array<string, mixed> $parts  The URL parts.
+     * @param array<string, mixed> $params The manipulation parameters.
      *
      * @return string The built URL.
      */

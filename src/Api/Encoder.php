@@ -15,13 +15,15 @@ class Encoder
 {
     /**
      * The manipulation params.
+     *
+     * @var array<string, mixed>
      */
     protected array $params;
 
     /**
      * Class constructor.
      *
-     * @param array $params the manipulator params
+     * @param array<string, mixed> $params the manipulator params
      */
     public function __construct(array $params = [])
     {
@@ -31,7 +33,7 @@ class Encoder
     /**
      * Set the manipulation params.
      *
-     * @param array $params The manipulation params.
+     * @param array<string, mixed> $params The manipulation params.
      *
      * @return $this
      */

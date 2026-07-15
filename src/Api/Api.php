@@ -25,7 +25,7 @@ class Api implements ApiInterface
     /**
      * Collection of manipulators.
      *
-     * @var ManipulatorInterface[]
+     * @var array<ManipulatorInterface>
      */
     protected array $manipulators;
 
@@ -45,8 +45,8 @@ class Api implements ApiInterface
      * Create API instance.
      *
      * @param ImageManagerInterface $imageManager Intervention image manager.
-     * @param array                 $manipulators Collection of manipulators.
-     * @param Encoder|null          $encoder      Image encoder.
+     * @param array<ManipulatorInterface> $manipulators Collection of manipulators.
+     * @param Encoder|null           $encoder      Image encoder.
      */
     public function __construct(ImageManagerInterface $imageManager, array $manipulators, ?Encoder $encoder = null)
     {
@@ -79,7 +79,7 @@ class Api implements ApiInterface
     /**
      * Set the manipulators.
      *
-     * @param array $manipulators Collection of manipulators.
+     * @param array<ManipulatorInterface> $manipulators Collection of manipulators.
      */
     public function setManipulators(array $manipulators): void
     {
@@ -95,7 +95,7 @@ class Api implements ApiInterface
     /**
      * Get the manipulators.
      *
-     * @return array Collection of manipulators.
+     * @return array<ManipulatorInterface> Collection of manipulators.
      */
     public function getManipulators(): array
     {
@@ -125,8 +125,8 @@ class Api implements ApiInterface
     /**
      * Perform image manipulations.
      *
-     * @param string $source Source image binary data.
-     * @param array  $params The manipulation params.
+     * @param string                $source Source image binary data.
+     * @param array<string, mixed>  $params The manipulation params.
      *
      * @return string Manipulated image binary data.
      */
@@ -145,8 +145,8 @@ class Api implements ApiInterface
     /**
      * Perform image encoding to a given format.
      *
-     * @param ImageInterface $image  Image object
-     * @param array          $params the manipulator params
+     * @param ImageInterface        $image  Image object
+     * @param array<string, mixed>  $params the manipulator params
      *
      * @return string Manipulated image binary data
      */
