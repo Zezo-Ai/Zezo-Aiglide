@@ -24,7 +24,7 @@ class Gamma extends BaseManipulator
     {
         $gamma = $this->getGamma();
 
-        if (null !== $gamma) {
+        if ($gamma !== null) {
             $image->gamma($gamma);
         }
 
@@ -40,7 +40,7 @@ class Gamma extends BaseManipulator
     {
         $gam = (string) $this->getParam('gam');
 
-        if ('' === $gam
+        if ($gam === ''
             || !preg_match('/^[0-9]\.*[0-9]*$/', $gam)
             || $gam < 0.1
             || $gam > 9.99

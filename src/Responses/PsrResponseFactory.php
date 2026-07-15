@@ -42,13 +42,13 @@ class PsrResponseFactory implements ResponseFactoryInterface
     public function create(FilesystemOperator $cache, string $path): ResponseInterface
     {
         $stream = $this->streamCallback->__invoke(
-            $cache->readStream($path)
+            $cache->readStream($path),
         );
 
         $contentType = $cache->mimeType($path);
         $contentLength = (string) $cache->fileSize($path);
         $cacheControl = 'max-age=31536000, public';
-        $expires = date_create('+1 years')->format('D, d M Y H:i:s').' GMT';
+        $expires = date_create('+1 years')->format('D, d M Y H:i:s') . ' GMT';
 
         return $this->response->withBody($stream)
             ->withHeader('Content-Type', $contentType)

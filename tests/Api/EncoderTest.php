@@ -29,24 +29,24 @@ class EncoderTest extends TestCase
         $manager = ImageManager::usingDriver(GdDriver::class);
 
         $this->jpg = $manager->decode(
-            $manager->createImage(100, 100)->encodeUsingMediaType(MediaType::IMAGE_JPEG)->toStream()
+            $manager->createImage(100, 100)->encodeUsingMediaType(MediaType::IMAGE_JPEG)->toStream(),
         );
         $this->png = $manager->decode(
-            $manager->createImage(100, 100)->encodeUsingMediaType(MediaType::IMAGE_PNG)->toStream()
+            $manager->createImage(100, 100)->encodeUsingMediaType(MediaType::IMAGE_PNG)->toStream(),
         );
         $this->gif = $manager->decode(
-            $manager->createImage(100, 100)->encodeUsingMediaType(MediaType::IMAGE_GIF)->toStream()
+            $manager->createImage(100, 100)->encodeUsingMediaType(MediaType::IMAGE_GIF)->toStream(),
         );
 
         if (function_exists('imagecreatefromwebp')) {
             $this->webp = $manager->decode(
-                $manager->createImage(100, 100)->encodeUsingMediaType(MediaType::IMAGE_WEBP)->toStream()
+                $manager->createImage(100, 100)->encodeUsingMediaType(MediaType::IMAGE_WEBP)->toStream(),
             );
         }
 
         if (function_exists('imagecreatefromavif')) {
             $this->avif = $manager->decode(
-                $manager->createImage(100, 100)->encodeUsingMediaType(MediaType::IMAGE_AVIF)->toStream()
+                $manager->createImage(100, 100)->encodeUsingMediaType(MediaType::IMAGE_AVIF)->toStream(),
             );
         }
 
@@ -170,7 +170,7 @@ class EncoderTest extends TestCase
     {
         if (!extension_loaded('imagick')) {
             $this->markTestSkipped(
-                'The imagick extension is not available.'
+                'The imagick extension is not available.',
             );
         }
         $manager = ImageManager::usingDriver(ImagickDriver::class);

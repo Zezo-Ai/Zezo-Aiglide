@@ -56,7 +56,7 @@ class ServerFactory
         $server = new Server(
             $this->getSource(),
             $this->getCache(),
-            $this->getApi()
+            $this->getApi(),
         );
 
         $server->setSourcePathPrefix($this->getSourcePathPrefix() ?? '');
@@ -70,7 +70,7 @@ class ServerFactory
         $server->setCachePathCallable($this->getCachePathCallable());
 
         $tempDir = $this->getTempDir();
-        if (null !== $tempDir) {
+        if ($tempDir !== null) {
             $server->setTempDir($tempDir);
         }
 
@@ -90,7 +90,7 @@ class ServerFactory
 
         if (is_string($this->config['source'])) {
             return new Filesystem(
-                new LocalFilesystemAdapter($this->config['source'])
+                new LocalFilesystemAdapter($this->config['source']),
             );
         }
 
@@ -120,7 +120,7 @@ class ServerFactory
 
         if (is_string($this->config['cache'])) {
             return new Filesystem(
-                new LocalFilesystemAdapter($this->config['cache'])
+                new LocalFilesystemAdapter($this->config['cache']),
             );
         }
 
@@ -188,7 +188,7 @@ class ServerFactory
 
         if (is_string($this->config['watermarks'])) {
             return new Filesystem(
-                new LocalFilesystemAdapter($this->config['watermarks'])
+                new LocalFilesystemAdapter($this->config['watermarks']),
             );
         }
 
@@ -215,7 +215,7 @@ class ServerFactory
         return new Api(
             $this->getImageManager(),
             $this->getManipulators(),
-            $this->getEncoder()
+            $this->getEncoder(),
         );
     }
 

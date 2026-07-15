@@ -36,12 +36,12 @@ class OrientationTest extends TestCase
 
         $this->assertInstanceOf(
             ImageInterface::class,
-            $this->manipulator->setParams(['or' => 'auto'])->run($image)
+            $this->manipulator->setParams(['or' => 'auto'])->run($image),
         );
 
         $this->assertInstanceOf(
             ImageInterface::class,
-            $this->manipulator->setParams(['or' => '90'])->run($image)
+            $this->manipulator->setParams(['or' => '90'])->run($image),
         );
     }
 

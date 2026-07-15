@@ -295,7 +295,7 @@ class ServerFactoryTest extends TestCase
         ]);
 
         $this->assertInstanceOf('League\Glide\Server', $server);
-        $this->assertSame(__DIR__.DIRECTORY_SEPARATOR, $server->getTempDir());
+        $this->assertSame(__DIR__ . DIRECTORY_SEPARATOR, $server->getTempDir());
         $this->assertSame($encoder, $server->getApi()->getEncoder());
     }
 }

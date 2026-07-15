@@ -34,7 +34,7 @@ class GammaTest extends TestCase
 
         $this->assertInstanceOf(
             ImageInterface::class,
-            $this->manipulator->setParams(['gam' => '1.5'])->run($image)
+            $this->manipulator->setParams(['gam' => '1.5'])->run($image),
         );
     }
 

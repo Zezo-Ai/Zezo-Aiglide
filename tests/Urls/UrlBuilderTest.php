@@ -20,7 +20,7 @@ class UrlBuilderTest extends TestCase
 
         $this->assertEquals(
             'http://example.com/image.jpg?w=100',
-            $urlBuilder->getUrl('image.jpg', ['w' => '100'])
+            $urlBuilder->getUrl('image.jpg', ['w' => '100']),
         );
     }
 
@@ -30,7 +30,7 @@ class UrlBuilderTest extends TestCase
 
         $this->assertEquals(
             '/image.jpg?w=100',
-            $urlBuilder->getUrl('image.jpg', ['w' => '100'])
+            $urlBuilder->getUrl('image.jpg', ['w' => '100']),
         );
     }
 
@@ -40,7 +40,7 @@ class UrlBuilderTest extends TestCase
 
         $this->assertEquals(
             'http://localhost:8000/image.jpg?w=100',
-            $urlBuilder->getUrl('image.jpg', ['w' => '100'])
+            $urlBuilder->getUrl('image.jpg', ['w' => '100']),
         );
     }
 
@@ -50,7 +50,7 @@ class UrlBuilderTest extends TestCase
 
         $this->assertEquals(
             '//localhost:8000/image.jpg?w=100',
-            $urlBuilder->getUrl('image.jpg', ['w' => '100'])
+            $urlBuilder->getUrl('image.jpg', ['w' => '100']),
         );
     }
 
@@ -60,7 +60,7 @@ class UrlBuilderTest extends TestCase
 
         $this->assertEquals(
             'http://example.com/image.jpg?w=100&s=e1b69d4b79ecf33283128819fd008906',
-            $urlBuilder->getUrl('image.jpg', ['w' => '100'])
+            $urlBuilder->getUrl('image.jpg', ['w' => '100']),
         );
     }
 

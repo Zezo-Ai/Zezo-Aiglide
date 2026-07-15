@@ -34,12 +34,12 @@ class FlipTest extends TestCase
 
         $this->assertInstanceOf(
             ImageInterface::class,
-            $this->manipulator->setParams(['flip' => 'h'])->run($image)
+            $this->manipulator->setParams(['flip' => 'h'])->run($image),
         );
 
         $this->assertInstanceOf(
             ImageInterface::class,
-            $this->manipulator->setParams(['flip' => 'v'])->run($image)
+            $this->manipulator->setParams(['flip' => 'v'])->run($image),
         );
     }
 
@@ -51,7 +51,7 @@ class FlipTest extends TestCase
 
         $this->assertInstanceOf(
             ImageInterface::class,
-            $this->manipulator->setParams(['flip' => 'both'])->run($image)
+            $this->manipulator->setParams(['flip' => 'both'])->run($image),
         );
     }
 

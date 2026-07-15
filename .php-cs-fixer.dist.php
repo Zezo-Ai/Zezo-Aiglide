@@ -1,22 +1,18 @@
 <?php
 
-$finder = (new PhpCsFixer\Finder())
+declare(strict_types=1);
+
+use PhpCsFixer\Config;
+use PhpCsFixer\Finder;
+
+$finder = (new Finder())
     ->in('scripts')
     ->in('src')
-    ->in('tests')
-;
+    ->in('tests');
 
-return (new PhpCsFixer\Config())
+return (new Config())
     ->setRules([
-        '@Symfony' => true,
-        'declare_strict_types' => true,
-        'phpdoc_annotation_without_dot' => false,
-        'nullable_type_declaration_for_default_null_value' => [
-            'use_nullable_type_declaration' => true,
-        ],
-        'phpdoc_to_comment' => [
-            'ignored_tags' => ['psalm-suppress', 'phpstan-ignore-line', 'phpstan-ignore-next-line'],
-        ],
+        '@PER-CS3.0' => true,
+        'yoda_style' => ['equal' => false, 'identical' => false, 'less_and_greater' => false],
     ])
-    ->setFinder($finder)
-;
+    ->setFinder($finder);

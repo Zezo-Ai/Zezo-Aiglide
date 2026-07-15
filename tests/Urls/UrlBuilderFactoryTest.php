@@ -22,7 +22,7 @@ class UrlBuilderFactoryTest extends TestCase
 
         $this->assertEquals(
             '/img/image.jpg?s=56020c3dc5f68487c14510343c3e2c43',
-            $urlBuilder->getUrl('image.jpg')
+            $urlBuilder->getUrl('image.jpg'),
         );
     }
 
@@ -32,7 +32,7 @@ class UrlBuilderFactoryTest extends TestCase
 
         $this->assertEquals(
             '/img/image.jpg?s=56020c3dc5f68487c14510343c3e2c43',
-            $urlBuilder->getUrl('image.jpg')
+            $urlBuilder->getUrl('image.jpg'),
         );
     }
 }

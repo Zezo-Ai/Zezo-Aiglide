@@ -68,7 +68,7 @@ class Size extends BaseManipulator
         [$width, $height] = $this->applyDpr($width, $height, $dpr);
         [$width, $height] = $this->limitImageSize($width, $height);
 
-        if ($width !== $image->width() || $height !== $image->height() || 1.0 !== $this->getCrop()[2]) {
+        if ($width !== $image->width() || $height !== $image->height() || $this->getCrop()[2] !== 1.0) {
             $image = $this->runResize($image, $fit, $width, $height);
         }
 
@@ -203,7 +203,7 @@ class Size extends BaseManipulator
      */
     public function limitImageSize(int $width, int $height): array
     {
-        if (null !== $this->maxImageSize) {
+        if ($this->maxImageSize !== null) {
             $imageSize = $width * $height;
 
             if ($imageSize > $this->maxImageSize) {
@@ -230,31 +230,31 @@ class Size extends BaseManipulator
      */
     public function runResize(ImageInterface $image, string $fit, int $width, int $height): ImageInterface
     {
-        if ('contain' === $fit) {
+        if ($fit === 'contain') {
             return $this->runContainResize($image, $width, $height);
         }
 
-        if ('fill' === $fit) {
+        if ($fit === 'fill') {
             return $this->runFillResize($image, $width, $height);
         }
 
-        if ('fill-max' === $fit) {
+        if ($fit === 'fill-max') {
             return $this->runFillMaxResize($image, $width, $height);
         }
 
-        if ('max' === $fit) {
+        if ($fit === 'max') {
             return $this->runMaxResize($image, $width, $height);
         }
 
-        if ('stretch' === $fit) {
+        if ($fit === 'stretch') {
             return $this->runStretchResize($image, $width, $height);
         }
 
-        if ('cover' === $fit) {
+        if ($fit === 'cover') {
             return $this->runCoverResize($image, $width, $height);
         }
 
-        if ('crop' === $fit) {
+        if ($fit === 'crop') {
             return $this->runCropResize($image, $width, $height);
         }
 
@@ -451,7 +451,7 @@ class Size extends BaseManipulator
 
         $fit = (string) $this->getParam('fit');
 
-        if ('' === $fit) {
+        if ($fit === '') {
             return [50, 50, 1.0];
         }
 

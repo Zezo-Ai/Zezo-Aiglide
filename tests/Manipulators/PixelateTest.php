@@ -34,7 +34,7 @@ class PixelateTest extends TestCase
 
         $this->assertInstanceOf(
             ImageInterface::class,
-            $this->manipulator->setParams(['pixel' => '10'])->run($image)
+            $this->manipulator->setParams(['pixel' => '10'])->run($image),
         );
     }
 

@@ -24,7 +24,7 @@ class Blur extends BaseManipulator
     {
         $blur = $this->getBlur();
 
-        if (null !== $blur) {
+        if ($blur !== null) {
             $image->blur($blur);
         }
 

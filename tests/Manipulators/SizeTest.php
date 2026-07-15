@@ -48,7 +48,7 @@ class SizeTest extends TestCase
 
         $this->assertInstanceOf(
             ImageInterface::class,
-            $this->manipulator->setParams(['w' => 100])->run($image)
+            $this->manipulator->setParams(['w' => 100])->run($image),
         );
     }
 
@@ -166,42 +166,42 @@ class SizeTest extends TestCase
 
         $this->assertInstanceOf(
             ImageInterface::class,
-            $this->manipulator->runResize($image, 'contain', 100, 100)
+            $this->manipulator->runResize($image, 'contain', 100, 100),
         );
 
         $this->assertInstanceOf(
             ImageInterface::class,
-            $this->manipulator->runResize($image, 'fill', 100, 100)
+            $this->manipulator->runResize($image, 'fill', 100, 100),
         );
 
         $this->assertInstanceOf(
             ImageInterface::class,
-            $this->manipulator->runResize($image, 'fill-max', 100, 100)
+            $this->manipulator->runResize($image, 'fill-max', 100, 100),
         );
 
         $this->assertInstanceOf(
             ImageInterface::class,
-            $this->manipulator->runResize($image, 'max', 100, 100)
+            $this->manipulator->runResize($image, 'max', 100, 100),
         );
 
         $this->assertInstanceOf(
             ImageInterface::class,
-            $this->manipulator->runResize($image, 'stretch', 100, 100)
+            $this->manipulator->runResize($image, 'stretch', 100, 100),
         );
 
         $this->assertInstanceOf(
             ImageInterface::class,
-            $this->manipulator->runResize($image, 'crop', 100, 100)
+            $this->manipulator->runResize($image, 'crop', 100, 100),
         );
 
         $this->assertInstanceOf(
             ImageInterface::class,
-            $this->manipulator->runResize($image, 'crop-top-right', 100, 100)
+            $this->manipulator->runResize($image, 'crop-top-right', 100, 100),
         );
 
         $this->assertInstanceOf(
             ImageInterface::class,
-            $this->manipulator->runResize($image, 'invalid', 100, 100)
+            $this->manipulator->runResize($image, 'invalid', 100, 100),
         );
     }
 
@@ -213,7 +213,7 @@ class SizeTest extends TestCase
 
         $this->assertInstanceOf(
             ImageInterface::class,
-            $this->manipulator->runContainResize($image, 100, 100)
+            $this->manipulator->runContainResize($image, 100, 100),
         );
     }
 
@@ -225,7 +225,7 @@ class SizeTest extends TestCase
 
         $this->assertInstanceOf(
             ImageInterface::class,
-            $this->manipulator->runFillResize($image, 100, 100)
+            $this->manipulator->runFillResize($image, 100, 100),
         );
     }
 
@@ -237,7 +237,7 @@ class SizeTest extends TestCase
 
         $this->assertInstanceOf(
             ImageInterface::class,
-            $this->manipulator->runMaxResize($image, 100, 100)
+            $this->manipulator->runMaxResize($image, 100, 100),
         );
     }
 
@@ -249,7 +249,7 @@ class SizeTest extends TestCase
 
         $this->assertInstanceOf(
             ImageInterface::class,
-            $this->manipulator->runStretchResize($image, 100, 100)
+            $this->manipulator->runStretchResize($image, 100, 100),
         );
     }
 
@@ -264,7 +264,7 @@ class SizeTest extends TestCase
 
         $this->assertInstanceOf(
             ImageInterface::class,
-            $this->manipulator->runCropResize($image, 100, 100)
+            $this->manipulator->runCropResize($image, 100, 100),
         );
     }
 
@@ -281,7 +281,7 @@ class SizeTest extends TestCase
 
         $this->assertInstanceOf(
             ImageInterface::class,
-            $this->manipulator->runCropResize($image, 600, 250)
+            $this->manipulator->runCropResize($image, 600, 250),
         );
     }
 
@@ -295,12 +295,12 @@ class SizeTest extends TestCase
 
         $this->assertInstanceOf(
             ImageInterface::class,
-            $this->manipulator->setParams(['w' => 50, 'h' => 50, 'fit' => 'cover'])->run($image)
+            $this->manipulator->setParams(['w' => 50, 'h' => 50, 'fit' => 'cover'])->run($image),
         );
 
         $this->assertInstanceOf(
             ImageInterface::class,
-            $this->manipulator->setParams(['w' => 50, 'h' => 50, 'fit' => 'crop'])->run($image)
+            $this->manipulator->setParams(['w' => 50, 'h' => 50, 'fit' => 'crop'])->run($image),
         );
     }
 
@@ -316,19 +316,19 @@ class SizeTest extends TestCase
 
         $this->assertInstanceOf(
             ImageInterface::class,
-            $this->manipulator->setParams(['w' => 50, 'h' => 50, 'fit' => 'crop-top-left'])->run($image)
+            $this->manipulator->setParams(['w' => 50, 'h' => 50, 'fit' => 'crop-top-left'])->run($image),
         );
         $this->assertInstanceOf(
             ImageInterface::class,
-            $this->manipulator->setParams(['w' => 50, 'h' => 50, 'fit' => 'cover-top-left'])->run($image)
+            $this->manipulator->setParams(['w' => 50, 'h' => 50, 'fit' => 'cover-top-left'])->run($image),
         );
         $this->assertInstanceOf(
             ImageInterface::class,
-            $this->manipulator->setParams(['w' => 50, 'h' => 50, 'fit' => 'crop-bottom'])->run($image)
+            $this->manipulator->setParams(['w' => 50, 'h' => 50, 'fit' => 'crop-bottom'])->run($image),
         );
         $this->assertInstanceOf(
             ImageInterface::class,
-            $this->manipulator->setParams(['w' => 50, 'h' => 50, 'fit' => 'crop-bottom-right'])->run($image)
+            $this->manipulator->setParams(['w' => 50, 'h' => 50, 'fit' => 'crop-bottom-right'])->run($image),
         );
     }
 
@@ -342,7 +342,7 @@ class SizeTest extends TestCase
 
         $this->assertInstanceOf(
             ImageInterface::class,
-            $this->manipulator->run($image)
+            $this->manipulator->run($image),
         );
     }
 
@@ -358,7 +358,7 @@ class SizeTest extends TestCase
 
         $this->assertInstanceOf(
             ImageInterface::class,
-            $this->manipulator->run($image)
+            $this->manipulator->run($image),
         );
     }
 
@@ -375,7 +375,7 @@ class SizeTest extends TestCase
 
         $this->assertInstanceOf(
             ImageInterface::class,
-            $this->manipulator->run($image)
+            $this->manipulator->run($image),
         );
     }
 }

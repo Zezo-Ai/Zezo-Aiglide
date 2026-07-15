@@ -31,7 +31,7 @@ class Crop extends BaseManipulator
                 $coordinates[0],
                 $coordinates[1],
                 $coordinates[2],
-                $coordinates[3]
+                $coordinates[3],
             );
         }
 
@@ -51,13 +51,14 @@ class Crop extends BaseManipulator
     {
         $crop = (string) $this->getParam('crop');
 
-        if ('' === $crop) {
+        if ($crop === '') {
             return null;
         }
 
         $coordinates = explode(',', $crop);
 
-        if (4 !== count($coordinates)
+        if (
+            count($coordinates) !== 4
             || (!is_numeric($coordinates[0]))
             || (!is_numeric($coordinates[1]))
             || (!is_numeric($coordinates[2]))

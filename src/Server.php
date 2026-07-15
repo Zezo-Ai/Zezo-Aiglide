@@ -99,7 +99,7 @@ class Server
     private function trimPrefixPathSeparator(string $prefix): string
     {
         if (str_ends_with($prefix, '://')) {
-            return rtrim($prefix, '/').'/';
+            return rtrim($prefix, '/') . '/';
         }
 
         return trim($prefix, '/');
@@ -111,7 +111,7 @@ class Server
     private function removeFilesystemIdentifier(string $path): string
     {
         $identifierPos = strpos($path, '://');
-        if (false === $identifierPos) {
+        if ($identifierPos === false) {
             return $path;
         }
 
@@ -171,18 +171,18 @@ class Server
     {
         $path = trim($path, '/');
 
-        $baseUrl = $this->baseUrl.'/';
+        $baseUrl = $this->baseUrl . '/';
 
         if (substr($path, 0, strlen($baseUrl)) === $baseUrl) {
             $path = trim(substr($path, strlen($baseUrl)), '/');
         }
 
-        if ('' === $path) {
+        if ($path === '') {
             throw new FileNotFoundException('Image path missing.');
         }
 
         if ($this->sourcePathPrefix) {
-            $path = $this->sourcePathPrefix.'/'.$path;
+            $path = $this->sourcePathPrefix . '/' . $path;
         }
 
         return rawurldecode($path);
@@ -285,7 +285,7 @@ class Server
             throw new \InvalidArgumentException(sprintf('Invalid temp dir provided: "%s" does not exist.', $tempDir));
         }
 
-        $this->tempDir = rtrim($tempDir, DIRECTORY_SEPARATOR).DIRECTORY_SEPARATOR;
+        $this->tempDir = rtrim($tempDir, DIRECTORY_SEPARATOR) . DIRECTORY_SEPARATOR;
     }
 
     /**
@@ -361,9 +361,9 @@ class Server
     public function getCachePath(string $path, array $params = []): string
     {
         $customCallable = $this->getCachePathCallable();
-        if (null !== $customCallable) {
+        if ($customCallable !== null) {
             $boundCallable = \Closure::bind($customCallable, $this, static::class);
-            if (null === $boundCallable) {
+            if ($boundCallable === null) {
                 throw new \UnexpectedValueException('Invalid cache path callable');
             }
 
@@ -380,25 +380,25 @@ class Server
         unset($params['s'], $params['p']);
         ksort($params);
 
-        $cachedPath = hash('xxh3', $sourcePath.'?'.http_build_query($params));
+        $cachedPath = hash('xxh3', $sourcePath . '?' . http_build_query($params));
 
         $identifierPos = strpos($sourcePath, '://');
-        if (false !== $identifierPos) {
+        if ($identifierPos !== false) {
             $sourcePath = substr($sourcePath, $identifierPos + 3);
         }
 
         if ($this->groupCacheInFolders) {
-            $cachedPath = $sourcePath.'/'.$cachedPath;
+            $cachedPath = $sourcePath . '/' . $cachedPath;
         }
 
         if ($this->cachePathPrefix) {
-            $cachedPath = $this->cachePathPrefix.'/'.$this->removeFilesystemIdentifier($cachedPath);
+            $cachedPath = $this->cachePathPrefix . '/' . $this->removeFilesystemIdentifier($cachedPath);
         }
 
         if ($this->cacheWithFileExtensions) {
             $ext = $params['fm'] ?? pathinfo($path, PATHINFO_EXTENSION);
-            $ext = 'pjpg' === $ext ? 'jpg' : $ext;
-            $cachedPath .= '.'.$ext;
+            $ext = $ext === 'pjpg' ? 'jpg' : $ext;
+            $cachedPath .= '.' . $ext;
         }
 
         return $cachedPath;
@@ -416,7 +416,7 @@ class Server
     {
         try {
             return $this->cache->fileExists(
-                $this->getCachePath($path, $params)
+                $this->getCachePath($path, $params),
             );
         } catch (FilesystemV2Exception $exception) {
             return false;
@@ -438,7 +438,7 @@ class Server
 
         try {
             $this->cache->deleteDirectory(
-                dirname($this->getCachePath($path))
+                dirname($this->getCachePath($path)),
             );
 
             return true;
@@ -526,7 +526,7 @@ class Server
             }
         }
 
-        return array_filter(array_merge($all, $params), fn ($key) => in_array($key, $this->api->getApiParams(), true), ARRAY_FILTER_USE_KEY);
+        return array_filter(array_merge($all, $params), fn($key) => in_array($key, $this->api->getApiParams(), true), ARRAY_FILTER_USE_KEY);
     }
 
     /**
@@ -590,9 +590,9 @@ class Server
         try {
             $source = $this->cache->read($path);
 
-            return 'data:'.$this->cache->mimeType($path).';base64,'.base64_encode($source);
+            return 'data:' . $this->cache->mimeType($path) . ';base64,' . base64_encode($source);
         } catch (FilesystemV2Exception $exception) {
-            throw new FilesystemException('Could not read the image `'.$path.'`.');
+            throw new FilesystemException('Could not read the image `' . $path . '`.');
         }
     }
 
@@ -611,20 +611,20 @@ class Server
         $path = $this->makeImage($path, $params);
 
         try {
-            header('Content-Type:'.$this->cache->mimeType($path));
-            header('Content-Length:'.$this->cache->fileSize($path));
+            header('Content-Type:' . $this->cache->mimeType($path));
+            header('Content-Length:' . $this->cache->fileSize($path));
             header('Cache-Control:max-age=31536000, public');
-            header('Expires:'.date_create('+1 years')->format('D, d M Y H:i:s').' GMT');
+            header('Expires:' . date_create('+1 years')->format('D, d M Y H:i:s') . ' GMT');
 
             $stream = $this->cache->readStream($path);
 
-            if (0 !== ftell($stream)) {
+            if (ftell($stream) !== 0) {
                 rewind($stream);
             }
             fpassthru($stream);
             fclose($stream);
         } catch (FilesystemV2Exception $exception) {
-            throw new FilesystemException('Could not read the image `'.$path.'`.');
+            throw new FilesystemException('Could not read the image `' . $path . '`.');
         }
     }
 
@@ -644,29 +644,29 @@ class Server
         $sourcePath = $this->getSourcePath($path);
         $cachedPath = $this->getCachePath($path, $params);
 
-        if (true === $this->cacheFileExists($path, $params)) {
+        if ($this->cacheFileExists($path, $params) === true) {
             return $cachedPath;
         }
 
-        if (false === $this->sourceFileExists($path)) {
-            throw new FileNotFoundException('Could not find the image `'.$sourcePath.'`.');
+        if ($this->sourceFileExists($path) === false) {
+            throw new FileNotFoundException('Could not find the image `' . $sourcePath . '`.');
         }
 
         try {
             $source = $this->source->read(
-                $sourcePath
+                $sourcePath,
             );
         } catch (FilesystemV2Exception $exception) {
-            throw new FilesystemException('Could not read the image `'.$sourcePath.'`.', 0, $exception);
+            throw new FilesystemException('Could not read the image `' . $sourcePath . '`.', 0, $exception);
         }
 
         try {
             $this->cache->write(
                 $cachedPath,
-                $this->api->run($source, $this->getAllParams($params))
+                $this->api->run($source, $this->getAllParams($params)),
             );
         } catch (FilesystemV2Exception $exception) {
-            throw new FilesystemException('Could not write the image `'.$cachedPath.'`.', 0, $exception);
+            throw new FilesystemException('Could not write the image `' . $cachedPath . '`.', 0, $exception);
         }
 
         return $cachedPath;

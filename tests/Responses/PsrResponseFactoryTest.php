@@ -11,12 +11,11 @@ class PsrResponseFactoryTest extends TestCase
     public function testCreateInstance()
     {
         $response = \Mockery::mock('Psr\Http\Message\ResponseInterface');
-        $streamCallback = function () {
-        };
+        $streamCallback = function () {};
 
         $this->assertInstanceOf(
             'League\Glide\Responses\PsrResponseFactory',
-            new PsrResponseFactory($response, $streamCallback)
+            new PsrResponseFactory($response, $streamCallback),
         );
     }
 
@@ -35,7 +34,7 @@ class PsrResponseFactoryTest extends TestCase
             $mock->shouldReceive('mimeType')->andReturn('image/jpeg');
             $mock->shouldReceive('fileSize')->andReturn(0);
             $mock->shouldReceive('readStream')->andReturn(
-                \Mockery::mock('Psr\Http\Message\StreamInterface')
+                \Mockery::mock('Psr\Http\Message\StreamInterface'),
             );
         });
 
@@ -43,7 +42,7 @@ class PsrResponseFactoryTest extends TestCase
 
         $this->assertInstanceOf(
             'Psr\Http\Message\ResponseInterface',
-            $factory->create($cache, 'image.jpg')
+            $factory->create($cache, 'image.jpg'),
         );
     }
 }

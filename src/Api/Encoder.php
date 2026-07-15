@@ -65,7 +65,7 @@ class Encoder
         $quality = $this->getQuality();
         $shouldInterlace = filter_var($this->getParam('interlace'), FILTER_VALIDATE_BOOLEAN);
 
-        if ('pjpg' === $format) {
+        if ($format === 'pjpg') {
             $shouldInterlace = true;
             $format = 'jpg';
         }
@@ -112,7 +112,7 @@ class Encoder
         }
 
         $mediaType = MediaType::tryFrom($image->origin()->mediaType());
-        if (null === $mediaType) {
+        if ($mediaType === null) {
             return 'jpg';
         }
 

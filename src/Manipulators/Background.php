@@ -26,7 +26,7 @@ class Background extends BaseManipulator
     {
         $bg = (string) $this->getParam('bg');
 
-        if ('' === $bg) {
+        if ($bg === '') {
             return $image;
         }
 
@@ -36,7 +36,7 @@ class Background extends BaseManipulator
             ->fill($color)
             ->insert($image, 0, 0, 'top-left')
             ->setOrigin(
-                new Origin($image->origin()->mediaType())
+                new Origin($image->origin()->mediaType()),
             );
     }
 }

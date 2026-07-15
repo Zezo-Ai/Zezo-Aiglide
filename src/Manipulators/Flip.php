@@ -25,7 +25,7 @@ class Flip extends BaseManipulator
     {
         $flip = $this->getFlip();
 
-        if (null !== $flip) {
+        if ($flip !== null) {
             return match ($flip) {
                 'both' => $image->flip(Direction::HORIZONTAL)->flip(Direction::VERTICAL),
                 'v' => $image->flip(Direction::VERTICAL),

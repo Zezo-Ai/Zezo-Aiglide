@@ -34,7 +34,7 @@ class BlurTest extends TestCase
 
         $this->assertInstanceOf(
             ImageInterface::class,
-            $this->manipulator->setParams(['blur' => 10])->run($image)
+            $this->manipulator->setParams(['blur' => 10])->run($image),
         );
     }
 

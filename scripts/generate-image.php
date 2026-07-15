@@ -22,7 +22,7 @@ declare(strict_types=1);
 
 use League\Glide\ServerFactory;
 
-require __DIR__.'/../vendor/autoload.php';
+require __DIR__ . '/../vendor/autoload.php';
 
 /**
  * Translate legacy v0.3 Glide params to current equivalents.
@@ -40,10 +40,10 @@ function translateLegacyParams(array $params): array
 
     // fit=crop & crop=left → fit=crop-left
     if (isset($params['fit'], $params['crop'])
-        && 'crop' === $params['fit']
+        && $params['fit'] === 'crop'
         && !preg_match('/^\d/', $params['crop'])
     ) {
-        $params['fit'] = 'crop-'.$params['crop'];
+        $params['fit'] = 'crop-' . $params['crop'];
         unset($params['crop']);
     }
 
@@ -70,7 +70,7 @@ function buildOutputFilename(string $sourceImage, array $params): string
     }
 
     if (empty($params)) {
-        return $base.'.'.$ext;
+        return $base . '.' . $ext;
     }
 
     ksort($params);
@@ -85,10 +85,10 @@ function buildOutputFilename(string $sourceImage, array $params): string
         // Negative values → 'neg' (e.g. bri=-25 → bri-neg25)
         $safeValue = str_replace('-', 'neg', $safeValue);
 
-        $parts[] = $key.'-'.$safeValue;
+        $parts[] = $key . '-' . $safeValue;
     }
 
-    return $base.'-'.implode('_', $parts).'.'.$ext;
+    return $base . '-' . implode('_', $parts) . '.' . $ext;
 }
 
 /**
@@ -114,14 +114,14 @@ function generateImage(string $input, string $sourceDir, string $outputDir): str
     $params = translateLegacyParams($params);
 
     // Resolve source file
-    $sourcePath = $sourceDir.'/'.$sourceImage;
+    $sourcePath = $sourceDir . '/' . $sourceImage;
     if (!file_exists($sourcePath)) {
         throw new RuntimeException("Source image not found: {$sourcePath}");
     }
 
     // Build output filename
     $outputFilename = buildOutputFilename($sourceImage, $params);
-    $outputPath = $outputDir.'/'.$outputFilename;
+    $outputPath = $outputDir . '/' . $outputFilename;
 
     // Skip if already generated
     if (file_exists($outputPath)) {
@@ -153,8 +153,8 @@ if (!isset($argv[1])) {
     exit(1);
 }
 
-$sourceDir = __DIR__.'/../docs/source-images';
-$outputDir = __DIR__.'/../docs/images';
+$sourceDir = __DIR__ . '/../docs/source-images';
+$outputDir = __DIR__ . '/../docs/images';
 
 try {
     $filename = generateImage($argv[1], $sourceDir, $outputDir);

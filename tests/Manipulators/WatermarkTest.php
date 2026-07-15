@@ -17,7 +17,7 @@ class WatermarkTest extends TestCase
     public function setUp(): void
     {
         $this->manipulator = new Watermark(
-            \Mockery::mock('League\Flysystem\FilesystemOperator')
+            \Mockery::mock('League\Flysystem\FilesystemOperator'),
         );
     }
 
@@ -79,7 +79,7 @@ class WatermarkTest extends TestCase
 
         $this->assertInstanceOf(
             ImageInterface::class,
-            $this->manipulator->run($image)
+            $this->manipulator->run($image),
         );
     }
 
@@ -222,7 +222,7 @@ class WatermarkTest extends TestCase
         $image = \Mockery::mock(ImageInterface::class, function ($mock) use ($watermarkImage) {
             $mock->shouldReceive('insert')
                 ->withArgs(function ($wm, $x, $y, $pos, $alpha) {
-                    return $alpha >= 0 && $alpha <= 1 && 0.65 === $alpha;
+                    return $alpha >= 0 && $alpha <= 1 && $alpha === 0.65;
                 })
                 ->once()
                 ->andReturnSelf();

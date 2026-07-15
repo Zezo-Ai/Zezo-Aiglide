@@ -34,7 +34,7 @@ class BrightnessTest extends TestCase
 
         $this->assertInstanceOf(
             ImageInterface::class,
-            $this->manipulator->setParams(['bri' => 50])->run($image)
+            $this->manipulator->setParams(['bri' => 50])->run($image),
         );
     }
 
