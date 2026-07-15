@@ -27,7 +27,7 @@ jobs:
           coverage: pcov
 
       - name: Composer install
-        uses: ramsey/composer-install@v3
+        uses: ramsey/composer-install@v4
         with:
           dependency-versions: ${{ matrix.dependencies }}
 
@@ -41,7 +41,7 @@ jobs:
 
       - name: Code Coverage Report
         if: matrix.php-version == '8.3'
-        uses: codecov/codecov-action@v3
+        uses: codecov/codecov-action@v7
 
   coding-style:
     runs-on: ubuntu-22.04
@@ -54,7 +54,7 @@ jobs:
           extensions: gd, imagick
 
       - name: Composer install
-        uses: ramsey/composer-install@v3
+        uses: ramsey/composer-install@v4
 
       - name: php-cs-fixer
         run: |
@@ -71,7 +71,7 @@ jobs:
           extensions: gd, imagick
 
       - name: Composer install
-        uses: ramsey/composer-install@v3
+        uses: ramsey/composer-install@v4
 
       - name: phpstan
         if: always()
