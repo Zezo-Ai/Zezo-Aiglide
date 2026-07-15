@@ -268,6 +268,23 @@ class SizeTest extends TestCase
         );
     }
 
+    public function testRunCropResizeScalesUpToFullyCoverCropDimensions(): void
+    {
+        $image = \Mockery::mock(ImageInterface::class, function ($mock) {
+            $mock->shouldReceive('width')->andReturn(1920)->times(4);
+            $mock->shouldReceive('height')->andReturn(1278)->times(4);
+            $mock->shouldReceive('scale')->with(600, 400)->andReturn($mock)->once();
+            $mock->shouldReceive('crop')->with(600, 250, 0, 514, Color::transparent()->toString())->andReturn($mock)->once();
+        });
+
+        $this->manipulator->setParams(['fit' => 'crop-0-50']);
+
+        $this->assertInstanceOf(
+            ImageInterface::class,
+            $this->manipulator->runCropResize($image, 600, 250)
+        );
+    }
+
     public function testRunCoverResize(): void
     {
         $image = \Mockery::mock(ImageInterface::class, function ($mock) {
