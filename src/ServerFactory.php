@@ -25,7 +25,6 @@ use League\Glide\Manipulators\Gamma;
 use League\Glide\Manipulators\Orientation;
 use League\Glide\Manipulators\Pixelate;
 use League\Glide\Manipulators\Sharpen;
-use League\Glide\Manipulators\ManipulatorInterface;
 use League\Glide\Manipulators\Size;
 use League\Glide\Manipulators\Watermark;
 use League\Glide\Responses\ResponseFactoryInterface;
@@ -262,7 +261,7 @@ class ServerFactory
     /**
      * Get image manipulators.
      *
-     * @return array<ManipulatorInterface> Image manipulators.
+     * @return array<Manipulators\ManipulatorInterface> Image manipulators.
      */
     public function getManipulators(): array
     {

@@ -55,7 +55,7 @@ class EncoderTest extends TestCase
 
     public function tearDown(): void
     {
-        \Mockery::close();
+        Mockery::close();
     }
 
     public function testCreateInstance(): void
@@ -144,7 +144,7 @@ class EncoderTest extends TestCase
 
     protected function getImageByMimeType(string $mimeType): ImageInterface
     {
-        return \Mockery::mock(ImageInterface::class, function ($mock) use ($mimeType) {
+        return Mockery::mock(ImageInterface::class, function ($mock) use ($mimeType) {
             $this->assertMediaType($mock, $mimeType);
         });
     }
@@ -216,6 +216,6 @@ class EncoderTest extends TestCase
         /*
          * @var Mock $mock
          */
-        return $mock->shouldReceive('origin')->andReturn(\Mockery::mock('Intervention\Image\Origin', ['mediaType' => $mediaType]));
+        return $mock->shouldReceive('origin')->andReturn(Mockery::mock('Intervention\Image\Origin', ['mediaType' => $mediaType]));
     }
 }
