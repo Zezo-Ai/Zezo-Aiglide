@@ -23,7 +23,7 @@ class FilterTest extends TestCase
 
     public function testCreateInstance()
     {
-        $this->assertInstanceOf('League\Glide\Manipulators\Filter', $this->manipulator);
+        $this->assertInstanceOf(Filter::class, $this->manipulator);
     }
 
     public function testRun()

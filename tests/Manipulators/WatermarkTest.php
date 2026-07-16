@@ -6,6 +6,7 @@ namespace League\Glide\Manipulators;
 
 use Intervention\Image\Interfaces\DriverInterface;
 use Intervention\Image\Interfaces\ImageInterface;
+use League\Flysystem\FilesystemOperator;
 use League\Glide\Filesystem\FilesystemException;
 use PHPUnit\Framework\Attributes\DoesNotPerformAssertions;
 use PHPUnit\Framework\TestCase;
@@ -28,18 +29,18 @@ class WatermarkTest extends TestCase
 
     public function testCreateInstance()
     {
-        $this->assertInstanceOf('League\Glide\Manipulators\Watermark', $this->manipulator);
+        $this->assertInstanceOf(Watermark::class, $this->manipulator);
     }
 
     public function testSetWatermarks()
     {
         $this->manipulator->setWatermarks(\Mockery::mock('League\Flysystem\FilesystemOperator'));
-        $this->assertInstanceOf('League\Flysystem\FilesystemOperator', $this->manipulator->getWatermarks());
+        $this->assertInstanceOf(FilesystemOperator::class, $this->manipulator->getWatermarks());
     }
 
     public function testGetWatermarks()
     {
-        $this->assertInstanceOf('League\Flysystem\FilesystemOperator', $this->manipulator->getWatermarks());
+        $this->assertInstanceOf(FilesystemOperator::class, $this->manipulator->getWatermarks());
     }
 
     public function testSetWatermarksPathPrefix()

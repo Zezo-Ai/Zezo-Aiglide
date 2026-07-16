@@ -23,7 +23,7 @@ class GammaTest extends TestCase
 
     public function testCreateInstance()
     {
-        $this->assertInstanceOf('League\Glide\Manipulators\Gamma', $this->manipulator);
+        $this->assertInstanceOf(Gamma::class, $this->manipulator);
     }
 
     public function testRun()

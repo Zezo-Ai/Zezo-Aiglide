@@ -17,7 +17,7 @@ class SignatureTest extends TestCase
 
     public function testCreateInstance()
     {
-        $this->assertInstanceOf('League\Glide\Signatures\Signature', $this->httpSignature);
+        $this->assertInstanceOf(Signature::class, $this->httpSignature);
     }
 
     public function testAddSignature()

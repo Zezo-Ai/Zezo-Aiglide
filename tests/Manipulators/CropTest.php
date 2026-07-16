@@ -28,7 +28,7 @@ class CropTest extends TestCase
 
     public function testCreateInstance()
     {
-        $this->assertInstanceOf('League\Glide\Manipulators\Crop', $this->manipulator);
+        $this->assertInstanceOf(Crop::class, $this->manipulator);
     }
 
     public function testRun()

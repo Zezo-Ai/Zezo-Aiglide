@@ -11,7 +11,7 @@ class UrlBuilderTest extends TestCase
 {
     public function testCreateInstance()
     {
-        $this->assertInstanceOf('League\Glide\Urls\UrlBuilder', new UrlBuilder());
+        $this->assertInstanceOf(UrlBuilder::class, new UrlBuilder());
     }
 
     public function testGetUrl()

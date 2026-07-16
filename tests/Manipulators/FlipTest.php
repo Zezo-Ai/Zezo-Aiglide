@@ -23,7 +23,7 @@ class FlipTest extends TestCase
 
     public function testCreateInstance()
     {
-        $this->assertInstanceOf('League\Glide\Manipulators\Flip', $this->manipulator);
+        $this->assertInstanceOf(Flip::class, $this->manipulator);
     }
 
     public function testRun()

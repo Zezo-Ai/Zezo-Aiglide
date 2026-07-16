@@ -12,7 +12,7 @@ class UrlBuilderFactoryTest extends TestCase
     {
         $urlBuilder = UrlBuilderFactory::create('/img');
 
-        $this->assertInstanceOf('League\Glide\Urls\UrlBuilder', $urlBuilder);
+        $this->assertInstanceOf(UrlBuilder::class, $urlBuilder);
         $this->assertEquals('/img/image.jpg', $urlBuilder->getUrl('image.jpg'));
     }
 

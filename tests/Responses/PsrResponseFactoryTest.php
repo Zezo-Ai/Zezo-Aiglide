@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace League\Glide\Responses;
 
 use PHPUnit\Framework\TestCase;
+use Psr\Http\Message\ResponseInterface;
 
 class PsrResponseFactoryTest extends TestCase
 {
@@ -14,7 +15,7 @@ class PsrResponseFactoryTest extends TestCase
         $streamCallback = function () {};
 
         $this->assertInstanceOf(
-            'League\Glide\Responses\PsrResponseFactory',
+            PsrResponseFactory::class,
             new PsrResponseFactory($response, $streamCallback),
         );
     }
@@ -41,7 +42,7 @@ class PsrResponseFactoryTest extends TestCase
         $factory = new PsrResponseFactory($response, $streamCallback);
 
         $this->assertInstanceOf(
-            'Psr\Http\Message\ResponseInterface',
+            ResponseInterface::class,
             $factory->create($cache, 'image.jpg'),
         );
     }

@@ -20,7 +20,7 @@ class BackgroundTest extends TestCase
 
     public function testCreateInstance()
     {
-        $this->assertInstanceOf('League\Glide\Manipulators\Background', new Background());
+        $this->assertInstanceOf(Background::class, new Background());
     }
 
     public function testRun()

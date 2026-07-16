@@ -4,40 +4,46 @@ declare(strict_types=1);
 
 namespace League\Glide;
 
+use Intervention\Image\Drivers\Gd\Driver;
+use Intervention\Image\ImageManager;
+use League\Flysystem\FilesystemOperator;
+use League\Glide\Api\Api;
 use League\Glide\Api\Encoder;
+use League\Glide\Manipulators\ManipulatorInterface;
+use League\Glide\Responses\ResponseFactoryInterface;
 use PHPUnit\Framework\TestCase;
 
 class ServerFactoryTest extends TestCase
 {
     public function testCreateServerFactory()
     {
-        $this->assertInstanceOf('League\Glide\ServerFactory', new ServerFactory());
+        $this->assertInstanceOf(ServerFactory::class, new ServerFactory());
     }
 
     public function testGetServer()
     {
         $server = new ServerFactory([
-            'source' => \Mockery::mock('League\Flysystem\FilesystemOperator'),
-            'cache' => \Mockery::mock('League\Flysystem\FilesystemOperator'),
-            'response' => \Mockery::mock('League\Glide\Responses\ResponseFactoryInterface'),
+            'source' => \Mockery::mock(FilesystemOperator::class),
+            'cache' => \Mockery::mock(FilesystemOperator::class),
+            'response' => \Mockery::mock(ResponseFactoryInterface::class),
         ]);
 
-        $this->assertInstanceOf('League\Glide\Server', $server->getServer());
+        $this->assertInstanceOf(Server::class, $server->getServer());
     }
 
     public function testGetSource()
     {
         $server = new ServerFactory([
-            'source' => \Mockery::mock('League\Flysystem\FilesystemOperator'),
+            'source' => \Mockery::mock(FilesystemOperator::class),
         ]);
 
-        $this->assertInstanceOf('League\Flysystem\FilesystemOperator', $server->getSource());
+        $this->assertInstanceOf(FilesystemOperator::class, $server->getSource());
 
         $server = new ServerFactory([
             'source' => sys_get_temp_dir(),
         ]);
 
-        $this->assertInstanceOf('League\Flysystem\FilesystemOperator', $server->getSource());
+        $this->assertInstanceOf(FilesystemOperator::class, $server->getSource());
     }
 
     public function testGetSourceWithNoneSet()
@@ -61,16 +67,16 @@ class ServerFactoryTest extends TestCase
     public function testGetCache()
     {
         $server = new ServerFactory([
-            'cache' => \Mockery::mock('League\Flysystem\FilesystemOperator'),
+            'cache' => \Mockery::mock(FilesystemOperator::class),
         ]);
 
-        $this->assertInstanceOf('League\Flysystem\FilesystemOperator', $server->getCache());
+        $this->assertInstanceOf(FilesystemOperator::class, $server->getCache());
 
         $server = new ServerFactory([
             'cache' => sys_get_temp_dir(),
         ]);
 
-        $this->assertInstanceOf('League\Flysystem\FilesystemOperator', $server->getCache());
+        $this->assertInstanceOf(FilesystemOperator::class, $server->getCache());
     }
 
     public function testGetCacheWithNoneSet()
@@ -129,16 +135,16 @@ class ServerFactoryTest extends TestCase
     public function testGetWatermarks()
     {
         $server = new ServerFactory([
-            'watermarks' => \Mockery::mock('League\Flysystem\FilesystemOperator'),
+            'watermarks' => \Mockery::mock(FilesystemOperator::class),
         ]);
 
-        $this->assertInstanceOf('League\Flysystem\FilesystemOperator', $server->getWatermarks());
+        $this->assertInstanceOf(FilesystemOperator::class, $server->getWatermarks());
 
         $server = new ServerFactory([
             'watermarks' => sys_get_temp_dir(),
         ]);
 
-        $this->assertInstanceOf('League\Flysystem\FilesystemOperator', $server->getWatermarks());
+        $this->assertInstanceOf(FilesystemOperator::class, $server->getWatermarks());
     }
 
     public function testGetWatermarksPathPrefix()
@@ -154,7 +160,7 @@ class ServerFactoryTest extends TestCase
     {
         $server = new ServerFactory();
 
-        $this->assertInstanceOf('League\Glide\Api\Api', $server->getApi());
+        $this->assertInstanceOf(Api::class, $server->getApi());
     }
 
     public function testGetImageManagerWithImagick()
@@ -164,7 +170,7 @@ class ServerFactoryTest extends TestCase
         ]);
         $imageManager = $server->getImageManager();
 
-        $this->assertInstanceOf('Intervention\Image\ImageManager', $imageManager);
+        $this->assertInstanceOf(ImageManager::class, $imageManager);
     }
 
     public function testGetImageManagerWithGd()
@@ -174,7 +180,7 @@ class ServerFactoryTest extends TestCase
         ]);
         $imageManager = $server->getImageManager();
 
-        $this->assertInstanceOf('Intervention\Image\ImageManager', $imageManager);
+        $this->assertInstanceOf(ImageManager::class, $imageManager);
     }
 
     public function testGetImageManagerWithNoneSet()
@@ -182,7 +188,7 @@ class ServerFactoryTest extends TestCase
         $server = new ServerFactory();
         $imageManager = $server->getImageManager();
 
-        $this->assertInstanceOf('Intervention\Image\ImageManager', $imageManager);
+        $this->assertInstanceOf(ImageManager::class, $imageManager);
     }
 
     public function testGetImageManagerWithDriverOptions()
@@ -195,7 +201,7 @@ class ServerFactoryTest extends TestCase
         ]);
         $imageManager = $server->getImageManager();
 
-        $this->assertInstanceOf('Intervention\Image\ImageManager', $imageManager);
+        $this->assertInstanceOf(ImageManager::class, $imageManager);
         $this->assertTrue($imageManager->driver->config()->strip);
     }
 
@@ -208,7 +214,7 @@ class ServerFactoryTest extends TestCase
         ]);
         $imageManager = $server->getImageManager();
 
-        $this->assertInstanceOf('Intervention\Image\Drivers\Gd\Driver', $imageManager->driver);
+        $this->assertInstanceOf(Driver::class, $imageManager->driver);
         $this->assertTrue($imageManager->driver->config()->strip);
     }
 
@@ -218,7 +224,7 @@ class ServerFactoryTest extends TestCase
         $manipulators = $server->getManipulators();
 
         $this->assertIsArray($manipulators);
-        $this->assertInstanceOf('League\Glide\Manipulators\ManipulatorInterface', $manipulators[0]);
+        $this->assertInstanceOf(ManipulatorInterface::class, $manipulators[0]);
     }
 
     public function testGetMaxImageSize()
@@ -270,10 +276,10 @@ class ServerFactoryTest extends TestCase
     public function testGetResponseFactory()
     {
         $server = new ServerFactory([
-            'response' => \Mockery::mock('League\Glide\Responses\ResponseFactoryInterface'),
+            'response' => \Mockery::mock(ResponseFactoryInterface::class),
         ]);
 
-        $this->assertInstanceOf('League\Glide\Responses\ResponseFactoryInterface', $server->getResponseFactory());
+        $this->assertInstanceOf(ResponseFactoryInterface::class, $server->getResponseFactory());
     }
 
     public function testGetResponseFactoryWithNoneSet()
@@ -287,14 +293,14 @@ class ServerFactoryTest extends TestCase
     {
         $encoder = \Mockery::mock(Encoder::class);
         $server = ServerFactory::create([
-            'source' => \Mockery::mock('League\Flysystem\FilesystemOperator'),
-            'cache' => \Mockery::mock('League\Flysystem\FilesystemOperator'),
-            'response' => \Mockery::mock('League\Glide\Responses\ResponseFactoryInterface'),
+            'source' => \Mockery::mock(FilesystemOperator::class),
+            'cache' => \Mockery::mock(FilesystemOperator::class),
+            'response' => \Mockery::mock(ResponseFactoryInterface::class),
             'temp_dir' => __DIR__,
             'encoder' => $encoder,
         ]);
 
-        $this->assertInstanceOf('League\Glide\Server', $server);
+        $this->assertInstanceOf(Server::class, $server);
         $this->assertSame(__DIR__ . DIRECTORY_SEPARATOR, $server->getTempDir());
         $this->assertSame($encoder, $server->getApi()->getEncoder());
     }

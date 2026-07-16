@@ -19,7 +19,7 @@ class BorderTest extends TestCase
 
     public function testCreateInstance()
     {
-        $this->assertInstanceOf('League\Glide\Manipulators\Border', new Border());
+        $this->assertInstanceOf(Border::class, new Border());
     }
 
     public function testGetBorder()

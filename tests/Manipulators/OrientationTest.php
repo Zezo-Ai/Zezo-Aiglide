@@ -23,7 +23,7 @@ class OrientationTest extends TestCase
 
     public function testCreateInstance()
     {
-        $this->assertInstanceOf('League\Glide\Manipulators\Orientation', $this->manipulator);
+        $this->assertInstanceOf(Orientation::class, $this->manipulator);
     }
 
     public function testRun()

@@ -23,7 +23,7 @@ class BlurTest extends TestCase
 
     public function testCreateInstance()
     {
-        $this->assertInstanceOf('League\Glide\Manipulators\Blur', $this->manipulator);
+        $this->assertInstanceOf(Blur::class, $this->manipulator);
     }
 
     public function testRun()

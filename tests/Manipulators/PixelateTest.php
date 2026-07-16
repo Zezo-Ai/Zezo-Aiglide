@@ -23,7 +23,7 @@ class PixelateTest extends TestCase
 
     public function testCreateInstance()
     {
-        $this->assertInstanceOf('League\Glide\Manipulators\Pixelate', $this->manipulator);
+        $this->assertInstanceOf(Pixelate::class, $this->manipulator);
     }
 
     public function testRun()
