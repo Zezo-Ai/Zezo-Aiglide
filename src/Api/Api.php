@@ -14,7 +14,6 @@ class Api implements ApiInterface
         'p', // preset
         'q', // quality
         'fm', // format
-        'strip', // strip metadata
         's', // signature
     ];
 

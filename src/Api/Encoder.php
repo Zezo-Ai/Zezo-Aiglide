@@ -90,15 +90,6 @@ class Encoder
                 throw new \Exception("Invalid format provided: {$format}");
         }
 
-        // Only forward the strip option to encoders that accept it (gif and png do not),
-        // so callers can drop EXIF metadata consistently across the GD and Imagick drivers.
-        if (
-            filter_var($this->getParam('strip'), FILTER_VALIDATE_BOOLEAN)
-            && in_array($format, ['jpg', 'webp', 'avif', 'tiff', 'heic'], true)
-        ) {
-            $encoderOptions['strip'] = true;
-        }
-
         return $image->encodeUsingFileExtension($format, ...$encoderOptions);
     }
 

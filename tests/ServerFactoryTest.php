@@ -185,6 +185,33 @@ class ServerFactoryTest extends TestCase
         $this->assertInstanceOf('Intervention\Image\ImageManager', $imageManager);
     }
 
+    public function testGetImageManagerWithDriverOptions()
+    {
+        $server = new ServerFactory([
+            'driver' => [
+                'driver' => 'imagick',
+                'strip' => true,
+            ],
+        ]);
+        $imageManager = $server->getImageManager();
+
+        $this->assertInstanceOf('Intervention\Image\ImageManager', $imageManager);
+        $this->assertTrue($imageManager->driver->config()->strip);
+    }
+
+    public function testGetImageManagerWithDriverOptionsAndNoDriverSet()
+    {
+        $server = new ServerFactory([
+            'driver' => [
+                'strip' => true,
+            ],
+        ]);
+        $imageManager = $server->getImageManager();
+
+        $this->assertInstanceOf('Intervention\Image\Drivers\Gd\Driver', $imageManager->driver);
+        $this->assertTrue($imageManager->driver->config()->strip);
+    }
+
     public function testGetManipulators()
     {
         $server = new ServerFactory();

@@ -237,16 +237,23 @@ class ServerFactory
     public function getImageManager(): ImageManagerInterface
     {
         $driver = 'gd';
+        $options = [];
 
         if (isset($this->config['driver'])) {
             $driver = $this->config['driver'];
+        }
+
+        if (is_array($driver)) {
+            $options = $driver;
+            $driver = $options['driver'] ?? 'gd';
+            unset($options['driver']);
         }
 
         return ImageManager::usingDriver(match ($driver) {
             'gd' => GdDriver::class,
             'imagick' => ImagickDriver::class,
             default => $driver,
-        });
+        }, ...$options);
     }
 
     /**
