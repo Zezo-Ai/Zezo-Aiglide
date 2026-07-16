@@ -187,6 +187,29 @@ class EncoderTest extends TestCase
         $this->assertSame('image/tiff', $this->getMime($this->encoder->setParams(['fm' => 'tiff'])->run($this->heic)));
     }
 
+    public function testStripMetadata(): void
+    {
+        if (!extension_loaded('imagick')) {
+            $this->markTestSkipped(
+                'The imagick extension is not available.'
+            );
+        }
+
+        $manager = ImageManager::usingDriver(ImagickDriver::class);
+
+        // Build a JPEG carrying a minimal EXIF profile (a single "Make" tag) so we can
+        // observe whether the metadata survives encoding on the Imagick driver.
+        $native = new \Imagick();
+        $native->newImage(100, 100, new \ImagickPixel('red'));
+        $native->setImageFormat('jpeg');
+        $native->profileImage('exif', "Exif\x00\x00II\x2a\x00\x08\x00\x00\x00\x01\x00\x0f\x01\x02\x00\x03\x00\x00\x00AB\x00\x00\x00\x00\x00\x00");
+        $image = $manager->decode($native->getImagesBlob());
+
+        // Metadata is preserved by default and removed only when stripping is requested.
+        $this->assertSame(1, $this->exifProfileCount($this->encoder->setParams(['fm' => 'jpg'])->run($image)));
+        $this->assertSame(0, $this->exifProfileCount($this->encoder->setParams(['fm' => 'jpg', 'strip' => true])->run($image)));
+    }
+
     public function testSupportedFormats(): void
     {
         $expected = [
@@ -206,6 +229,14 @@ class EncoderTest extends TestCase
     protected function getMime(EncodedImageInterface $image): string
     {
         return $image->mediaType();
+    }
+
+    protected function exifProfileCount(EncodedImageInterface $image): int
+    {
+        $imagick = new \Imagick();
+        $imagick->readImageBlob($image->toString());
+
+        return count($imagick->getImageProfiles('exif', false));
     }
 
     /**
