@@ -22,3 +22,20 @@ $server = \League\Glide\ServerFactory::create([
     'driver' => \Intervention\Image\Drivers\Vips\Driver::class,
 ]);
 ~~~
+
+## Driver options
+
+The `driver` option also accepts an array, letting you pass additional options through to Intervention Image's `ImageManager`, such as stripping EXIF metadata from output images.
+
+~~~ php
+<?php
+
+$server = \League\Glide\ServerFactory::create([
+    'driver' => [
+        'driver' => 'imagick',
+        'strip' => true,
+    ],
+]);
+~~~
+
+See the [Intervention Image driver configuration docs](https://image.intervention.io/v4/getting-started/configuration-drivers) for the full list of available options.
