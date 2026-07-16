@@ -89,7 +89,7 @@ class Watermark extends BaseManipulator
     {
         $watermark = $this->getImage($image);
 
-        if (null === $watermark) {
+        if ($watermark === null) {
             return $image;
         }
 
@@ -102,7 +102,7 @@ class Watermark extends BaseManipulator
         $markpos = $this->getPosition();
         $markalpha = $this->getAlpha();
 
-        if (null !== $markpad) {
+        if ($markpad !== null) {
             $markx = $marky = $markpad;
         }
 
@@ -126,18 +126,18 @@ class Watermark extends BaseManipulator
      */
     public function getImage(ImageInterface $image): ?ImageInterface
     {
-        if (null === $this->watermarks) {
+        if ($this->watermarks === null) {
             return null;
         }
 
         $path = (string) $this->getParam('mark');
 
-        if ('' === $path) {
+        if ($path === '') {
             return null;
         }
 
         if ($this->watermarksPathPrefix) {
-            $path = $this->watermarksPathPrefix.'/'.$path;
+            $path = $this->watermarksPathPrefix . '/' . $path;
         }
 
         $mark = null;
@@ -148,7 +148,7 @@ class Watermark extends BaseManipulator
                 $mark = $image->driver()->decodeImage($source);
             }
         } catch (FilesystemV2Exception $exception) {
-            throw new FilesystemException('Could not read the image `'.$path.'`.');
+            throw new FilesystemException('Could not read the image `' . $path . '`.');
         }
 
         if ($mark instanceof ImageInterface) {

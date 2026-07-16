@@ -44,7 +44,7 @@ class Dimension
         }
 
         if (preg_match('/^(\d{1,2}(?!\d)|100)(w|h)$/', $value, $matches)) {
-            if ('h' === $matches[2]) {
+            if ($matches[2] === 'h') {
                 return (float) $this->image->height() * ((float) $matches[1] / 100);
             }
 

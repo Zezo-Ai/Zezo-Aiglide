@@ -23,7 +23,7 @@ class FilterTest extends TestCase
 
     public function testCreateInstance()
     {
-        $this->assertInstanceOf('League\Glide\Manipulators\Filter', $this->manipulator);
+        $this->assertInstanceOf(Filter::class, $this->manipulator);
     }
 
     public function testRun()
@@ -37,17 +37,17 @@ class FilterTest extends TestCase
 
         $this->assertInstanceOf(
             ImageInterface::class,
-            $this->manipulator->setParams(['filt' => 'greyscale'])->run($image)
+            $this->manipulator->setParams(['filt' => 'greyscale'])->run($image),
         );
 
         $this->assertInstanceOf(
             ImageInterface::class,
-            $this->manipulator->setParams(['filt' => 'sepia'])->run($image)
+            $this->manipulator->setParams(['filt' => 'sepia'])->run($image),
         );
 
         $this->assertInstanceOf(
             ImageInterface::class,
-            $this->manipulator->setParams([])->run($image)
+            $this->manipulator->setParams([])->run($image),
         );
     }
 
@@ -59,7 +59,7 @@ class FilterTest extends TestCase
 
         $this->assertInstanceOf(
             ImageInterface::class,
-            $this->manipulator->runGreyscaleFilter($image)
+            $this->manipulator->runGreyscaleFilter($image),
         );
     }
 
@@ -74,7 +74,7 @@ class FilterTest extends TestCase
 
         $this->assertInstanceOf(
             ImageInterface::class,
-            $this->manipulator->runSepiaFilter($image)
+            $this->manipulator->runSepiaFilter($image),
         );
     }
 }

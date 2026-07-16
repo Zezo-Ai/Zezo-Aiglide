@@ -24,7 +24,7 @@ class Sharpen extends BaseManipulator
     {
         $sharpen = $this->getSharpen();
 
-        if (null !== $sharpen) {
+        if ($sharpen !== null) {
             $image->sharpen($sharpen);
         }
 

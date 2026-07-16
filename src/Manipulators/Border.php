@@ -30,7 +30,7 @@ class Border extends BaseManipulator
         if ($border) {
             [$width, $color, $method] = $border;
 
-            return $this->{'run'.$method}($image, $width, $color);
+            return $this->{'run' . $method}($image, $width, $color);
         }
 
         return $image;
@@ -41,14 +41,12 @@ class Border extends BaseManipulator
      *
      * @param ImageInterface $image The source image.
      *
-     * @return (float|string)[]|null The resolved border amount.
-     *
-     * @psalm-return array{0: float, 1: string, 2: string}|null
+     * @return array{0: float, 1: string, 2: string}|null The resolved border amount.
      */
     public function getBorder(ImageInterface $image): ?array
     {
         $border = (string) $this->getParam('border');
-        if ('' === $border) {
+        if ($border === '') {
             return null;
         }
 
@@ -58,7 +56,7 @@ class Border extends BaseManipulator
         $color = $this->getColor($values[1] ?? 'ffffff');
         $method = $this->getMethod($values[2] ?? 'overlay');
 
-        if (null !== $width) {
+        if ($width !== null) {
             return [$width, $color, $method];
         }
 
@@ -162,7 +160,7 @@ class Border extends BaseManipulator
         return $image
             ->resize(
                 (int) round($image->width() - ($width * 2)),
-                (int) round($image->height() - ($width * 2))
+                (int) round($image->height() - ($width * 2)),
             )
             ->resizeCanvasRelative(
                 (int) round($width * 2),

@@ -24,7 +24,7 @@ class Brightness extends BaseManipulator
     {
         $brightness = $this->getBrightness();
 
-        if (null !== $brightness) {
+        if ($brightness !== null) {
             $image->brightness($brightness);
         }
 
@@ -40,7 +40,7 @@ class Brightness extends BaseManipulator
     {
         $bri = (string) $this->getParam('bri');
 
-        if ('' === $bri
+        if ($bri === ''
             || !preg_match('/^-*[0-9]+$/', $bri)
             || $bri < -100
             || $bri > 100

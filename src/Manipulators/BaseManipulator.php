@@ -8,19 +8,21 @@ abstract class BaseManipulator implements ManipulatorInterface
 {
     /**
      * The manipulation params.
+     *
+     * @var array<string, mixed>
      */
     protected array $params = [];
 
     /**
      * Set the manipulation params.
      *
-     * @param array $params The manipulation params.
+     * @param array<string, mixed> $params The manipulation params.
      *
      * @return $this
      */
     public function setParams(array $params): static
     {
-        $this->params = array_filter($params, fn (string $key): bool => in_array($key, $this->getApiParams()), ARRAY_FILTER_USE_KEY);
+        $this->params = array_filter($params, fn(string $key): bool => in_array($key, $this->getApiParams()), ARRAY_FILTER_USE_KEY);
 
         return $this;
     }

@@ -23,7 +23,7 @@ class GammaTest extends TestCase
 
     public function testCreateInstance()
     {
-        $this->assertInstanceOf('League\Glide\Manipulators\Gamma', $this->manipulator);
+        $this->assertInstanceOf(Gamma::class, $this->manipulator);
     }
 
     public function testRun()
@@ -34,7 +34,7 @@ class GammaTest extends TestCase
 
         $this->assertInstanceOf(
             ImageInterface::class,
-            $this->manipulator->setParams(['gam' => '1.5'])->run($image)
+            $this->manipulator->setParams(['gam' => '1.5'])->run($image),
         );
     }
 

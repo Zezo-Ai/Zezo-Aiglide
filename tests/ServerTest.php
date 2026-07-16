@@ -28,7 +28,7 @@ class ServerTest extends TestCase
             \Mockery::mock(ApiInterface::class, function ($mock) {
                 $mock->shouldReceive('run')->andReturn('content');
                 $mock->shouldReceive('getApiParams')->andReturn(['p', 'q', 'fm', 's', 'w', 'h', 'fit', 'crop', 'dpr']);
-            })
+            }),
         );
     }
 
@@ -177,7 +177,7 @@ class ServerTest extends TestCase
     public function testSetGetTempDir(): void
     {
         $this->server->setTempDir(__DIR__);
-        $this->assertSame(__DIR__.DIRECTORY_SEPARATOR, $this->server->getTempDir());
+        $this->assertSame(__DIR__ . DIRECTORY_SEPARATOR, $this->server->getTempDir());
     }
 
     public function testSetCachePathCallable(): void
@@ -264,7 +264,7 @@ class ServerTest extends TestCase
     {
         $this->assertEquals(
             'image.jpg/382a458ecb704818',
-            $this->server->getCachePath('image.jpg', ['w' => '100'])
+            $this->server->getCachePath('image.jpg', ['w' => '100']),
         );
     }
 
@@ -274,7 +274,7 @@ class ServerTest extends TestCase
 
         $this->assertEquals(
             '382a458ecb704818',
-            $this->server->getCachePath('image.jpg', ['w' => '100'])
+            $this->server->getCachePath('image.jpg', ['w' => '100']),
         );
     }
 
@@ -466,7 +466,7 @@ class ServerTest extends TestCase
 
         $this->assertInstanceOf(
             ResponseFactoryInterface::class,
-            $this->server->getResponseFactory()
+            $this->server->getResponseFactory(),
         );
     }
 
@@ -487,7 +487,7 @@ class ServerTest extends TestCase
 
         $this->assertInstanceOf(
             ResponseInterface::class,
-            $this->server->getImageResponse('image.jpg', [])
+            $this->server->getImageResponse('image.jpg', []),
         );
     }
 
@@ -509,7 +509,7 @@ class ServerTest extends TestCase
 
         $this->assertEquals(
             'data:image/jpeg;base64,Y29udGVudA==',
-            $this->server->getImageAsBase64('image.jpg', [])
+            $this->server->getImageAsBase64('image.jpg', []),
         );
     }
 
@@ -566,7 +566,7 @@ class ServerTest extends TestCase
 
         $this->assertEquals(
             'image.jpg/a2c14b0b5cf0e5a5',
-            $this->server->makeImage('image.jpg', [])
+            $this->server->makeImage('image.jpg', []),
         );
     }
 
@@ -589,7 +589,7 @@ class ServerTest extends TestCase
 
         $this->assertEquals(
             'image.jpg/a2c14b0b5cf0e5a5',
-            $this->server->makeImage('image.jpg', [])
+            $this->server->makeImage('image.jpg', []),
         );
     }
 
@@ -601,7 +601,7 @@ class ServerTest extends TestCase
 
         $this->assertEquals(
             'image.jpg/a2c14b0b5cf0e5a5',
-            $this->server->makeImage('image.jpg', [])
+            $this->server->makeImage('image.jpg', []),
         );
     }
 

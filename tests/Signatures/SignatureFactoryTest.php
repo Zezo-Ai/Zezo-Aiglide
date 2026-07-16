@@ -10,6 +10,6 @@ class SignatureFactoryTest extends TestCase
 {
     public function testCreate()
     {
-        $this->assertInstanceOf('League\Glide\Signatures\Signature', SignatureFactory::create('example'));
+        $this->assertInstanceOf(Signature::class, SignatureFactory::create('example'));
     }
 }

@@ -23,7 +23,7 @@ class BrightnessTest extends TestCase
 
     public function testCreateInstance()
     {
-        $this->assertInstanceOf('League\Glide\Manipulators\Brightness', $this->manipulator);
+        $this->assertInstanceOf(Brightness::class, $this->manipulator);
     }
 
     public function testRun()
@@ -34,7 +34,7 @@ class BrightnessTest extends TestCase
 
         $this->assertInstanceOf(
             ImageInterface::class,
-            $this->manipulator->setParams(['bri' => 50])->run($image)
+            $this->manipulator->setParams(['bri' => 50])->run($image),
         );
     }
 

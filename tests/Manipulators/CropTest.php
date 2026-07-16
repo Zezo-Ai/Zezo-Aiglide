@@ -28,7 +28,7 @@ class CropTest extends TestCase
 
     public function testCreateInstance()
     {
-        $this->assertInstanceOf('League\Glide\Manipulators\Crop', $this->manipulator);
+        $this->assertInstanceOf(Crop::class, $this->manipulator);
     }
 
     public function testRun()
@@ -37,7 +37,7 @@ class CropTest extends TestCase
 
         $this->assertInstanceOf(
             ImageInterface::class,
-            $this->manipulator->setParams(['crop' => '100,100,0,0'])->run($this->image)
+            $this->manipulator->setParams(['crop' => '100,100,0,0'])->run($this->image),
         );
     }
 

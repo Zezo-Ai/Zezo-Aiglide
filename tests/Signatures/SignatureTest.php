@@ -17,14 +17,14 @@ class SignatureTest extends TestCase
 
     public function testCreateInstance()
     {
-        $this->assertInstanceOf('League\Glide\Signatures\Signature', $this->httpSignature);
+        $this->assertInstanceOf(Signature::class, $this->httpSignature);
     }
 
     public function testAddSignature()
     {
         $this->assertEquals(
             ['w' => '100', 's' => '9978a40f1fc75fa64ac92ea9baf16ff3'],
-            $this->httpSignature->addSignature('image.jpg', ['w' => '100'])
+            $this->httpSignature->addSignature('image.jpg', ['w' => '100']),
         );
     }
 
@@ -32,7 +32,7 @@ class SignatureTest extends TestCase
     {
         $this->assertEquals(
             ['w' => '100', 's' => '9978a40f1fc75fa64ac92ea9baf16ff3'],
-            $this->httpSignature->addSignature('image.jpg', ['w' => '100', 's' => 'existing'])
+            $this->httpSignature->addSignature('image.jpg', ['w' => '100', 's' => 'existing']),
         );
     }
 
@@ -42,7 +42,7 @@ class SignatureTest extends TestCase
             $this->httpSignature->validateRequest('image.jpg', [
                 'w' => '100',
                 's' => '9978a40f1fc75fa64ac92ea9baf16ff3',
-            ])
+            ]),
         );
     }
 
@@ -52,7 +52,7 @@ class SignatureTest extends TestCase
             $this->httpSignature->validateRequest('/image.jpg', [
                 'w' => '100',
                 's' => '9978a40f1fc75fa64ac92ea9baf16ff3',
-            ])
+            ]),
         );
     }
 
@@ -81,7 +81,7 @@ class SignatureTest extends TestCase
     {
         $this->assertEquals(
             '9978a40f1fc75fa64ac92ea9baf16ff3',
-            $this->httpSignature->generateSignature('image.jpg', ['w' => '100'])
+            $this->httpSignature->generateSignature('image.jpg', ['w' => '100']),
         );
     }
 }

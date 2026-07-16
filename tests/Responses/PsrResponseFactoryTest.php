@@ -5,18 +5,18 @@ declare(strict_types=1);
 namespace League\Glide\Responses;
 
 use PHPUnit\Framework\TestCase;
+use Psr\Http\Message\ResponseInterface;
 
 class PsrResponseFactoryTest extends TestCase
 {
     public function testCreateInstance()
     {
         $response = \Mockery::mock('Psr\Http\Message\ResponseInterface');
-        $streamCallback = function () {
-        };
+        $streamCallback = function () {};
 
         $this->assertInstanceOf(
-            'League\Glide\Responses\PsrResponseFactory',
-            new PsrResponseFactory($response, $streamCallback)
+            PsrResponseFactory::class,
+            new PsrResponseFactory($response, $streamCallback),
         );
     }
 
@@ -35,15 +35,15 @@ class PsrResponseFactoryTest extends TestCase
             $mock->shouldReceive('mimeType')->andReturn('image/jpeg');
             $mock->shouldReceive('fileSize')->andReturn(0);
             $mock->shouldReceive('readStream')->andReturn(
-                \Mockery::mock('Psr\Http\Message\StreamInterface')
+                \Mockery::mock('Psr\Http\Message\StreamInterface'),
             );
         });
 
         $factory = new PsrResponseFactory($response, $streamCallback);
 
         $this->assertInstanceOf(
-            'Psr\Http\Message\ResponseInterface',
-            $factory->create($cache, 'image.jpg')
+            ResponseInterface::class,
+            $factory->create($cache, 'image.jpg'),
         );
     }
 }

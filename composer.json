@@ -34,7 +34,7 @@
     "require-dev": {
         "mockery/mockery": "^1.6",
         "phpunit/phpunit": "^12.5 || ^13.0",
-        "friendsofphp/php-cs-fixer": "^3.48",
+        "friendsofphp/php-cs-fixer": "^3.95",
         "phpstan/phpstan": "^2.2"
     },
     "autoload": {

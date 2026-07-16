@@ -23,7 +23,7 @@ class ContrastTest extends TestCase
 
     public function testCreateInstance()
     {
-        $this->assertInstanceOf('League\Glide\Manipulators\Contrast', $this->manipulator);
+        $this->assertInstanceOf(Contrast::class, $this->manipulator);
     }
 
     public function testRun()
@@ -34,7 +34,7 @@ class ContrastTest extends TestCase
 
         $this->assertInstanceOf(
             ImageInterface::class,
-            $this->manipulator->setParams(['con' => 50])->run($image)
+            $this->manipulator->setParams(['con' => 50])->run($image),
         );
     }
 

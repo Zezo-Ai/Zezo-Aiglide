@@ -24,10 +24,10 @@ class Signature implements SignatureInterface
     /**
      * Add an HTTP signature to manipulation parameters.
      *
-     * @param string $path   The resource path.
-     * @param array  $params The manipulation parameters.
+     * @param string               $path   The resource path.
+     * @param array<string, mixed> $params The manipulation parameters.
      *
-     * @return array The updated manipulation parameters.
+     * @return array<string, mixed> The updated manipulation parameters.
      */
     public function addSignature(string $path, array $params): array
     {
@@ -37,8 +37,8 @@ class Signature implements SignatureInterface
     /**
      * Validate a request signature.
      *
-     * @param string $path   The resource path.
-     * @param array  $params The manipulation params.
+     * @param string               $path   The resource path.
+     * @param array<string, mixed> $params The manipulation params.
      *
      * @throws SignatureException
      */
@@ -56,8 +56,8 @@ class Signature implements SignatureInterface
     /**
      * Generate an HTTP signature.
      *
-     * @param string $path   The resource path.
-     * @param array  $params The manipulation parameters.
+     * @param string               $path   The resource path.
+     * @param array<string, mixed> $params The manipulation parameters.
      *
      * @return string The generated HTTP signature.
      */
@@ -66,6 +66,6 @@ class Signature implements SignatureInterface
         unset($params['s']);
         ksort($params);
 
-        return md5($this->signKey.':'.ltrim($path, '/').'?'.http_build_query($params));
+        return md5($this->signKey . ':' . ltrim($path, '/') . '?' . http_build_query($params));
     }
 }

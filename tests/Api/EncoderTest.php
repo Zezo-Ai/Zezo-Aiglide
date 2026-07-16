@@ -29,24 +29,24 @@ class EncoderTest extends TestCase
         $manager = ImageManager::usingDriver(GdDriver::class);
 
         $this->jpg = $manager->decode(
-            $manager->createImage(100, 100)->encodeUsingMediaType(MediaType::IMAGE_JPEG)->toStream()
+            $manager->createImage(100, 100)->encodeUsingMediaType(MediaType::IMAGE_JPEG)->toStream(),
         );
         $this->png = $manager->decode(
-            $manager->createImage(100, 100)->encodeUsingMediaType(MediaType::IMAGE_PNG)->toStream()
+            $manager->createImage(100, 100)->encodeUsingMediaType(MediaType::IMAGE_PNG)->toStream(),
         );
         $this->gif = $manager->decode(
-            $manager->createImage(100, 100)->encodeUsingMediaType(MediaType::IMAGE_GIF)->toStream()
+            $manager->createImage(100, 100)->encodeUsingMediaType(MediaType::IMAGE_GIF)->toStream(),
         );
 
         if (function_exists('imagecreatefromwebp')) {
             $this->webp = $manager->decode(
-                $manager->createImage(100, 100)->encodeUsingMediaType(MediaType::IMAGE_WEBP)->toStream()
+                $manager->createImage(100, 100)->encodeUsingMediaType(MediaType::IMAGE_WEBP)->toStream(),
             );
         }
 
         if (function_exists('imagecreatefromavif')) {
             $this->avif = $manager->decode(
-                $manager->createImage(100, 100)->encodeUsingMediaType(MediaType::IMAGE_AVIF)->toStream()
+                $manager->createImage(100, 100)->encodeUsingMediaType(MediaType::IMAGE_AVIF)->toStream(),
             );
         }
 
@@ -60,9 +60,6 @@ class EncoderTest extends TestCase
 
     public function testCreateInstance(): void
     {
-        /**
-         * @psalm-suppress ArgumentTypeCoercion
-         */
         $this->assertInstanceOf(Encoder::class, $this->encoder);
     }
 
@@ -170,7 +167,7 @@ class EncoderTest extends TestCase
     {
         if (!extension_loaded('imagick')) {
             $this->markTestSkipped(
-                'The imagick extension is not available.'
+                'The imagick extension is not available.',
             );
         }
         $manager = ImageManager::usingDriver(ImagickDriver::class);
@@ -213,16 +210,11 @@ class EncoderTest extends TestCase
      *
      * @param Mock   $mock
      * @param string $mediaType
-     *
-     * @psalm-suppress MoreSpecificReturnType
      */
     protected function assertMediaType($mock, $mediaType): Mockery\CompositeExpectation
     {
         /*
          * @var Mock $mock
-         */
-        /**
-         * @psalm-suppress LessSpecificReturnStatement, UndefinedMagicMethod
          */
         return $mock->shouldReceive('origin')->andReturn(\Mockery::mock('Intervention\Image\Origin', ['mediaType' => $mediaType]));
     }

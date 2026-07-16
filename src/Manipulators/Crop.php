@@ -31,7 +31,7 @@ class Crop extends BaseManipulator
                 $coordinates[0],
                 $coordinates[1],
                 $coordinates[2],
-                $coordinates[3]
+                $coordinates[3],
             );
         }
 
@@ -43,21 +43,20 @@ class Crop extends BaseManipulator
      *
      * @param ImageInterface $image The source image.
      *
-     * @return int[]|null The resolved coordinates.
-     *
-     * @psalm-return array{0: int, 1: int, 2: int, 3: int}|null
+     * @return array{0: int, 1: int, 2: int, 3: int}|null The resolved coordinates.
      */
     public function getCoordinates(ImageInterface $image): ?array
     {
         $crop = (string) $this->getParam('crop');
 
-        if ('' === $crop) {
+        if ($crop === '') {
             return null;
         }
 
         $coordinates = explode(',', $crop);
 
-        if (4 !== count($coordinates)
+        if (
+            count($coordinates) !== 4
             || (!is_numeric($coordinates[0]))
             || (!is_numeric($coordinates[1]))
             || (!is_numeric($coordinates[2]))
@@ -83,9 +82,9 @@ class Crop extends BaseManipulator
      * Limit coordinates to image boundaries.
      *
      * @param ImageInterface $image       The source image.
-     * @param int[]          $coordinates The coordinates.
+     * @param array<int, int> $coordinates The coordinates.
      *
-     * @return int[] The limited coordinates.
+     * @return array<int, int> The limited coordinates.
      */
     public function limitToImageBoundaries(ImageInterface $image, array $coordinates): array
     {

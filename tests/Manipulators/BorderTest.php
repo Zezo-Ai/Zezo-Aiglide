@@ -19,7 +19,7 @@ class BorderTest extends TestCase
 
     public function testCreateInstance()
     {
-        $this->assertInstanceOf('League\Glide\Manipulators\Border', new Border());
+        $this->assertInstanceOf(Border::class, new Border());
     }
 
     public function testGetBorder()
@@ -32,7 +32,7 @@ class BorderTest extends TestCase
 
         $this->assertSame(
             [10.0, 'rgba(0, 0, 0, 1)', 'overlay'],
-            $border->setParams(['border' => '10,black'])->getBorder($image)
+            $border->setParams(['border' => '10,black'])->getBorder($image),
         );
     }
 
@@ -43,7 +43,7 @@ class BorderTest extends TestCase
         $border = new Border();
 
         $this->assertNull(
-            $border->setParams(['border' => '0,black'])->getBorder($image)
+            $border->setParams(['border' => '0,black'])->getBorder($image),
         );
     }
 

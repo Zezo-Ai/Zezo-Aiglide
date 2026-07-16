@@ -9,8 +9,8 @@ interface ApiInterface
     /**
      * Perform image manipulations.
      *
-     * @param string $source Source image binary data.
-     * @param array  $params The manipulation params.
+     * @param string               $source Source image binary data.
+     * @param array<string, mixed> $params The manipulation params.
      *
      * @return string Manipulated image binary data.
      */

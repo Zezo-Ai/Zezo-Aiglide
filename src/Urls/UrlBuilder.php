@@ -42,8 +42,8 @@ class UrlBuilder
      */
     public function setBaseUrl(string $baseUrl): void
     {
-        if ('//' === substr($baseUrl, 0, 2)) {
-            $baseUrl = 'http:'.$baseUrl;
+        if (substr($baseUrl, 0, 2) === '//') {
+            $baseUrl = 'http:' . $baseUrl;
             $this->isRelativeDomain = true;
         }
 
@@ -63,25 +63,21 @@ class UrlBuilder
     /**
      * Get the URL.
      *
-     * @param string $path   The resource path.
-     * @param array  $params The manipulation parameters.
+     * @param string               $path   The resource path.
+     * @param array<string, mixed> $params The manipulation parameters.
      *
      * @return string The URL.
      */
     public function getUrl(string $path, array $params = []): string
     {
-        $parts = parse_url($this->baseUrl.'/'.trim($path, '/'));
+        $parts = parse_url($this->baseUrl . '/' . trim($path, '/'));
 
-        if (false === $parts) {
+        if ($parts === false) {
             throw new \InvalidArgumentException('Not a valid path.');
         }
 
-        /**
-         * @psalm-suppress PossiblyNullArgument, PossiblyUndefinedArrayOffset
-         *
-         * @phpstan-ignore-next-line
-         */
-        $parts['path'] = '/'.trim($parts['path'], '/');
+        /** @phpstan-ignore offsetAccess.notFound */
+        $parts['path'] = '/' . trim($parts['path'], '/');
 
         if ($this->signature) {
             $params = $this->signature->addSignature($parts['path'], $params);
@@ -93,8 +89,8 @@ class UrlBuilder
     /**
      * Build the URL.
      *
-     * @param array $parts  The URL parts.
-     * @param array $params The manipulation parameters.
+     * @param array<string, mixed> $parts  The URL parts.
+     * @param array<string, mixed> $params The manipulation parameters.
      *
      * @return string The built URL.
      */
@@ -104,20 +100,20 @@ class UrlBuilder
 
         if (isset($parts['host'])) {
             if ($this->isRelativeDomain) {
-                $url .= '//'.$parts['host'];
+                $url .= '//' . $parts['host'];
             } else {
-                $url .= $parts['scheme'].'://'.$parts['host'];
+                $url .= $parts['scheme'] . '://' . $parts['host'];
             }
 
             if (isset($parts['port'])) {
-                $url .= ':'.$parts['port'];
+                $url .= ':' . $parts['port'];
             }
         }
 
         $url .= $parts['path'];
 
         if (count($params)) {
-            $url .= '?'.http_build_query($params);
+            $url .= '?' . http_build_query($params);
         }
 
         return $url;

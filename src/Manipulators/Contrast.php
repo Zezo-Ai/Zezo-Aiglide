@@ -24,7 +24,7 @@ class Contrast extends BaseManipulator
     {
         $contrast = $this->getContrast();
 
-        if (null !== $contrast) {
+        if ($contrast !== null) {
             $image->contrast($contrast);
         }
 
@@ -40,7 +40,7 @@ class Contrast extends BaseManipulator
     {
         $con = (string) $this->getParam('con');
 
-        if ('' === $con
+        if ($con === ''
             || !preg_match('/^-*[0-9]+$/', $con)
             || $con < -100
             || $con > 100
